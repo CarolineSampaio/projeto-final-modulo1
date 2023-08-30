@@ -4,10 +4,10 @@ import Dashboard from '../views/Dashboard/DashboardPage.vue'
 import Exercises from '../views/Exercises/ExercisesPage.vue'
 import Login from '../views/Login/UserLogin.vue'
 import SignUp from '../views/SignUp/UserSignUp.vue'
-import NewStudent from '../views/Students/NewStudent/NewStudent.vue'
-import StudentManagement from '../views/Students/StudentManagement/StudentManagement.vue'
-import NewTraining from '../views/Training/NewTraining/NewTraining.vue'
-import TrainingView from '../views/Training/TrainingView/TrainingView.vue'
+import NewStudent from '../views/Students/NewStudent.vue'
+import StudentManagement from '../views/Students/StudentManagement.vue'
+import NewTraining from '../views/Training/NewTraining.vue'
+import TrainingView from '../views/Training/TrainingView.vue'
 
 const routes = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
