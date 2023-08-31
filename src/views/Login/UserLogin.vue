@@ -23,6 +23,7 @@
 <script>
 import * as yup from 'yup'
 import { captureErrorYup } from '../../utils/captureErrorYup'
+import axios from 'axios'
 
 export default {
   data() {
@@ -51,6 +52,19 @@ export default {
         )
 
         this.errors = {}
+
+        axios
+          .post('http://localhost:3000/sessions', {
+            email: this.email,
+            password: this.password
+          })
+          .then((response) => {
+            console.log(response, 'logado com sucesso')
+            this.$router.push('/')
+          })
+          .catch((error) => {
+            console.log(error)
+          })
       } catch (error) {
         if (error instanceof yup.ValidationError) {
           console.log(error)
