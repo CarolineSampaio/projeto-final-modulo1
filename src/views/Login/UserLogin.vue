@@ -68,7 +68,22 @@ export default {
             this.$router.push('/')
           })
           .catch((error) => {
-            console.log(error)
+            if (error.response) {
+              const status = error.response.status
+              const responseData = error.response.data
+
+              if (status === 401) {
+                if (responseData.message) {
+                  alert(responseData.message)
+                } else {
+                  alert('Email ou senha incorretos, tente novamente.')
+                }
+              } else if (status === 500) {
+                alert('Não foi possível realizar o login. Tente novamente mais tarde.')
+              }
+            } else {
+              alert('Ocorreu um erro. Tente novamente mais tarde.')
+            }
           })
       } catch (error) {
         if (error instanceof yup.ValidationError) {
