@@ -59,7 +59,12 @@ export default {
             password: this.password
           })
           .then((response) => {
-            console.log(response, 'logado com sucesso')
+            const loggedUser = {
+              name: response.data.name,
+              token: response.data.token
+            }
+            localStorage.setItem('logged_user', JSON.stringify(loggedUser))
+
             this.$router.push('/')
           })
           .catch((error) => {
