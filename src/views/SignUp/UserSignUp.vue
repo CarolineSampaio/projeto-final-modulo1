@@ -42,6 +42,7 @@
 <script>
 import * as yup from 'yup'
 import { captureErrorYup } from '../../utils/captureErrorYup'
+import axios from 'axios'
 
 export default {
   data() {
@@ -97,6 +98,27 @@ export default {
         )
 
         this.errors = {}
+
+        axios
+          .post('http://localhost:3000/users', {
+            name: this.name,
+            email: this.email,
+            password: this.password,
+            type_plan: this.selectPlan
+          })
+          .then(() => {
+            alert('Cadastrado com sucesso')
+
+            this.$router.push('/login')
+          })
+          .catch((error) => {
+            console.log(error)
+            if (error.response?.data?.message) {
+              alert(error.response.data.message)
+            } else {
+              alert('Houve uma falha ao tentar cadastrar')
+            }
+          })
       } catch (error) {
         if (error instanceof yup.ValidationError) {
           console.log(error)
