@@ -5,6 +5,16 @@
       <h1>Exercícios</h1>
     </v-row>
 
+    <v-form @submit.prevent="addExercise">
+      <v-text-field
+        v-model="description"
+        label="Nome do exercício"
+        class="mt-5"
+        :error-messages="errors.description"
+      ></v-text-field>
+      <v-btn type="submit">Cadastrar</v-btn>
+    </v-form>
+
     <v-table>
       <thead>
         <tr>
@@ -22,11 +32,15 @@
 
 <script>
 import axios from 'axios'
+import * as yup from 'yup'
+import { captureErrorYup } from '../../utils/captureErrorYup'
 
 export default {
   data() {
     return {
-      exercises: []
+      exercises: [],
+      description: '',
+      errors: []
     }
   },
   mounted() {
@@ -44,6 +58,26 @@ export default {
           console.log(error)
           alert('Erro ao carregar exercícios!')
         })
+    },
+    addExercise() {
+      const schema = yup.object().shape({
+        description: yup.string().required('Por favor, digite o nome do exercício.')
+      })
+      try {
+        schema.validateSync(
+          {
+            description: this.description
+          },
+          { abortEarly: false }
+        )
+        this.errors = {}
+      } catch (error) {
+        console.log(error)
+        if (error instanceof yup.ValidationError) {
+          console.log(error)
+          this.errors = captureErrorYup(error)
+        }
+      }
     }
   }
 }
