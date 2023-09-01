@@ -13,6 +13,10 @@
         :error-messages="errors.description"
       ></v-text-field>
       <v-btn type="submit">Cadastrar</v-btn>
+
+      <v-snackbar v-model="snackbar" :timeout="tempoExibicao" color="success" location="top">
+        Cadastrado com sucesso!
+      </v-snackbar>
     </v-form>
 
     <v-table>
@@ -40,7 +44,9 @@ export default {
     return {
       exercises: [],
       description: '',
-      errors: []
+      errors: [],
+      snackbar: false,
+      tempoExibicao: 2000
     }
   },
   mounted() {
@@ -71,6 +77,21 @@ export default {
           { abortEarly: false }
         )
         this.errors = {}
+
+        axios
+          .post('http://localhost:3000/exercises', {
+            description: this.description
+          })
+          .then((response) => {
+            console.log(response.data)
+            this.snackbar = true
+            this.getExercises()
+            this.description = ''
+          })
+          .catch((error) => {
+            console.log(error)
+            alert('Erro ao cadastrar exercício!')
+          })
       } catch (error) {
         console.log(error)
         if (error instanceof yup.ValidationError) {
