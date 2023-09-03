@@ -15,11 +15,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Nome aluno</td>
+      <tr v-for="student in students" :key="student.id">
+        <td>{{ student.name }}</td>
         <td>
-          <router-link to="/training/new"><v-btn>Montar treino</v-btn></router-link>
-          <router-link to="/training/:id"><v-btn>Ver treino</v-btn></router-link>
+          <router-link :to="`/training/new/${student.id}`">
+            <v-btn>Montar treino</v-btn>
+          </router-link>
+          <router-link :to="`/training/${student.id}`">
+            <v-btn>Ver treino</v-btn>
+          </router-link>
         </td>
       </tr>
     </tbody>
@@ -27,10 +31,22 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
-      search: ''
+      search: '',
+      students: []
+    }
+  },
+  mounted() {
+    this.getStudents()
+  },
+  methods: {
+    getStudents() {
+      axios.get('http://localhost:3000/students').then((response) => {
+        this.students = response.data.students
+      })
     }
   }
 }
