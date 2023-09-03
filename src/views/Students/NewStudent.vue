@@ -1,7 +1,7 @@
 <template>
   <h1><v-icon>mdi-account-multiple</v-icon>Alunos</h1>
 
-  <v-form @submit.prevent="CreateNewStudent">
+  <v-form @submit.prevent="createNewStudent">
     <v-text-field
       v-model="name"
       label="Nome completo"
@@ -39,7 +39,9 @@
       label="CEP"
       type="text"
       :error-messages="errors.cep"
-      class=""
+      maxLength="9"
+      v-on:focusout="getAddressInfo()"
+      v-on:keyup.enter="getAddressInfo()"
     ></v-text-field>
 
     <v-text-field
@@ -47,6 +49,7 @@
       label="Logradouro"
       type="text"
       :error-messages="errors.street"
+      :readonly="addressRequested"
     ></v-text-field>
 
     <v-text-field
@@ -61,6 +64,7 @@
       label="Bairro"
       type="text"
       :error-messages="errors.neighborhood"
+      :readonly="addressRequested"
     ></v-text-field>
 
     <v-text-field
@@ -68,6 +72,7 @@
       label="Cidade"
       type="text"
       :error-messages="errors.city"
+      :readonly="addressRequested"
     ></v-text-field>
 
     <v-text-field
@@ -75,6 +80,7 @@
       label="Estado"
       type="text"
       :error-messages="errors.state"
+      :readonly="addressRequested"
     ></v-text-field>
 
     <v-text-field
@@ -91,6 +97,20 @@
 <script>
 import * as yup from 'yup'
 import { captureErrorYup } from '../../utils/captureErrorYup'
+import axios from 'axios'
+
+const schema = yup.object().shape({
+  name: yup.string().required('O nome é obrigatório.'),
+  email: yup.string().email('Forneça um e-mail válido.'),
+  contact: yup.string().required('Um telefone para contato é obrigatório.'),
+  cep: yup.string().min(8, 'O CEP deve conter 8 dígitos.').required('O CEP é obrigatório.'),
+  street: yup.string().required('O logradouro é obrigatório.'),
+  number: yup.string().required('O número é obrigatório.'),
+  neighborhood: yup.string().required('O bairro é obrigatório.'),
+  city: yup.string().required('A cidade é obrigatória.'),
+  state: yup.string().required('O estado é obrigatório.'),
+  complement: yup.string().required('O complemento é obrigatório.')
+})
 
 export default {
   data() {
@@ -107,24 +127,13 @@ export default {
       city: '',
       state: '',
       complement: '',
+      addressRequested: false,
 
       errors: {}
     }
   },
   methods: {
-    CreateNewStudent() {
-      const schema = yup.object().shape({
-        name: yup.string().required('O nome é obrigatório.'),
-        email: yup.string().email('Forneça um e-mail válido.'),
-        contact: yup.string().required('Um telefone para contato é obrigatório.'),
-        cep: yup.string().required('O CEP é obrigatório.'),
-        street: yup.string().required('O logradouro é obrigatório.'),
-        number: yup.string().required('O número é obrigatório.'),
-        neighborhood: yup.string().required('O bairro é obrigatório.'),
-        city: yup.string().required('A cidade é obrigatória.'),
-        state: yup.string().required('O estado é obrigatório.'),
-        complement: yup.string().required('O complemento é obrigatório.')
-      })
+    validateSync() {
       this.errors = {}
       try {
         schema.validateSync(
@@ -149,6 +158,29 @@ export default {
           console.log(error)
           this.errors = captureErrorYup(error)
         }
+      }
+    },
+
+    createNewStudent() {
+      this.validateSync()
+    },
+    getAddressInfo() {
+      const cep = this.cep.replace('-', '')
+      if (cep.length === 8) {
+        axios
+          .get(`https://viacep.com.br/ws/${cep}/json/`)
+          .then(({ data }) => {
+            if (data.erro) return
+            this.street = data.logradouro
+            this.neighborhood = data.bairro
+            this.city = data.localidade
+            this.state = data.uf
+            this.addressRequested = true
+            this.validateSync()
+          })
+          .catch((error) => {
+            alert('Erro ao consultar CEP:', error)
+          })
       }
     }
   }
