@@ -43,7 +43,7 @@ const routes = createRouter({
       component: StudentManagement
     },
     {
-      path: '/training/new',
+      path: '/training/new/:id',
       name: 'NewTraining',
       component: NewTraining
     },
