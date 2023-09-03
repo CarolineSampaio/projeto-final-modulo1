@@ -1,7 +1,7 @@
 <template>
   <h1><v-icon>mdi-account-multiple</v-icon>Alunos</h1>
 
-  <v-form @submit.prevent="createNewStudent">
+  <v-form ref="form" @submit.prevent="createNewStudent">
     <v-text-field
       v-model="name"
       label="Nome completo"
@@ -92,6 +92,13 @@
 
     <v-btn type="">Cadastrar</v-btn>
   </v-form>
+
+  <v-snackbar v-model="snackbarSucess" :timeout="tempoExibicao" color="success" location="top">
+    Aluno cadastrado com sucesso!
+  </v-snackbar>
+  <v-snackbar v-model="snackbarError" :timeout="tempoExibicao" color="red" location="top">
+    Erro ao cadastrar aluno!
+  </v-snackbar>
 </template>
 
 <script>
@@ -101,7 +108,7 @@ import axios from 'axios'
 
 const schema = yup.object().shape({
   name: yup.string().required('O nome é obrigatório.'),
-  email: yup.string().email('Forneça um e-mail válido.'),
+  email: yup.string().optional().email('Forneça um e-mail válido.'),
   contact: yup.string().required('Um telefone para contato é obrigatório.'),
   cep: yup.string().min(8, 'O CEP deve conter 8 dígitos.').required('O CEP é obrigatório.'),
   street: yup.string().required('O logradouro é obrigatório.'),
@@ -109,7 +116,7 @@ const schema = yup.object().shape({
   neighborhood: yup.string().required('O bairro é obrigatório.'),
   city: yup.string().required('A cidade é obrigatória.'),
   state: yup.string().required('O estado é obrigatório.'),
-  complement: yup.string().required('O complemento é obrigatório.')
+  complement: yup.string().optional()
 })
 
 export default {
@@ -128,6 +135,9 @@ export default {
       state: '',
       complement: '',
       addressRequested: false,
+      snackbarSucess: false,
+      snackbarError: false,
+      tempoExibicao: 2000,
 
       errors: {}
     }
@@ -157,12 +167,40 @@ export default {
         if (error instanceof yup.ValidationError) {
           console.log(error)
           this.errors = captureErrorYup(error)
+          return false
         }
       }
+      return true
     },
 
     createNewStudent() {
-      this.validateSync()
+      if (this.validateSync() === false) return
+
+      const student = {
+        name: this.name,
+        email: this.email,
+        contact: this.contact,
+        date_birth: this.formatedDateBirth,
+        cep: this.cep,
+        street: this.street,
+        number: this.number,
+        neighborhood: this.neighborhood,
+        city: this.city,
+        province: this.state,
+        complement: this.complement
+      }
+
+      axios
+        .post('http://localhost:3000/students', student)
+        .then((response) => {
+          console.log(response.data)
+          this.snackbarSucess = true
+          this.$refs.form.reset()
+        })
+        .catch((error) => {
+          console.log(error)
+          this.snackbarError = true
+        })
     },
     getAddressInfo() {
       const cep = this.cep.replace('-', '')
@@ -179,7 +217,7 @@ export default {
             this.validateSync()
           })
           .catch((error) => {
-            alert('Erro ao consultar CEP:', error)
+            alert(`Erro ao consultar CEP: ${cep}`, error)
           })
       }
     }
