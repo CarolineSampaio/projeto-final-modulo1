@@ -3,8 +3,12 @@
   <router-link to="/students/new"><v-btn>novo</v-btn></router-link>
 
   <v-form class="d-flex">
-    <v-text-field v-model="search" label="Digite o nome do aluno" type="text"></v-text-field>
-    <v-btn>Buscar</v-btn>
+    <v-text-field
+      v-model="search"
+      label="Digite o nome do aluno"
+      type="text"
+      @input="searchStudents"
+    ></v-text-field>
   </v-form>
 
   <v-table>
@@ -15,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="student in students" :key="student.id">
+      <tr v-for="student in filteredStudents" :key="student.id">
         <td>{{ student.name }}</td>
         <td>
           <router-link :to="`/training/new/${student.id}`">
@@ -36,7 +40,8 @@ export default {
   data() {
     return {
       search: '',
-      students: []
+      students: [],
+      filteredStudents: []
     }
   },
   mounted() {
@@ -44,8 +49,13 @@ export default {
   },
   methods: {
     getStudents() {
-      axios.get('http://localhost:3000/students').then((response) => {
-        this.students = response.data.students
+      axios.get('http://localhost:3000/students').then(({ data }) => {
+        this.students = this.filteredStudents = data.students
+      })
+    },
+    searchStudents() {
+      this.filteredStudents = this.students.filter((student) => {
+        return student.name.toLowerCase().includes(this.search.toLowerCase())
       })
     }
   }
