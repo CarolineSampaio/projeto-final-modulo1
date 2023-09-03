@@ -14,7 +14,7 @@
       ></v-text-field>
       <v-btn type="submit">Cadastrar</v-btn>
 
-      <v-snackbar v-model="snackbar" :timeout="tempoExibicao" color="success" location="top">
+      <v-snackbar v-model="snackbar" :timeout="duration" color="success" location="top">
         Cadastrado com sucesso!
       </v-snackbar>
     </v-form>
@@ -46,7 +46,7 @@ export default {
       description: '',
       errors: [],
       snackbar: false,
-      tempoExibicao: 2000
+      duration: 2000
     }
   },
   mounted() {

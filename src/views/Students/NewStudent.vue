@@ -93,10 +93,10 @@
     <v-btn type="submit">Cadastrar</v-btn>
   </v-form>
 
-  <v-snackbar v-model="snackbarSucess" :timeout="tempoExibicao" color="success" location="top">
+  <v-snackbar v-model="snackbarSucess" :timeout="duration" color="success" location="top">
     Aluno cadastrado com sucesso!
   </v-snackbar>
-  <v-snackbar v-model="snackbarError" :timeout="tempoExibicao" color="red" location="top">
+  <v-snackbar v-model="snackbarError" :timeout="duration" color="red" location="top">
     Erro ao cadastrar aluno!
   </v-snackbar>
 </template>
@@ -137,7 +137,7 @@ export default {
       addressRequested: false,
       snackbarSucess: false,
       snackbarError: false,
-      tempoExibicao: 2000,
+      duration: 2000,
 
       errors: {}
     }
