@@ -20,7 +20,7 @@
     </thead>
     <tbody>
       <tr v-for="student in filteredStudents" :key="student.id">
-        <td>{{ student.name }}</td>
+        <td v-html="highlightSearch(student.name)"></td>
         <td>
           <router-link :to="`/training/new/${student.id}`">
             <v-btn>Montar treino</v-btn>
@@ -33,7 +33,6 @@
     </tbody>
   </v-table>
 </template>
-
 <script>
 import axios from 'axios'
 export default {
@@ -55,8 +54,16 @@ export default {
     },
     searchStudents() {
       this.filteredStudents = this.students.filter((student) => {
-        return student.name.toLowerCase().includes(this.search.toLowerCase())
+        return student.name.toLowerCase().includes(this.search.toLowerCase().trim())
       })
+    },
+    highlightSearch(str) {
+      if (!str || !this.search) return str
+      const highlight = this.search.trim()
+      return str.replace(
+        new RegExp(`(.)?(${highlight})(.)?`, 'ig'),
+        '$1<b style="background:yellow">$2</b>$3'
+      )
     }
   }
 }
