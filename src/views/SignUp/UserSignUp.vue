@@ -37,6 +37,12 @@
 
     <v-btn type="submit">Cadastrar</v-btn>
   </v-form>
+  <v-snackbar v-model="snackbarSucess" :timeout="duration" color="success" location="top">
+    Cadastro realizado com sucesso!
+  </v-snackbar>
+  <v-snackbar v-model="snackbarError" :timeout="duration" color="red" location="top">
+    Houve uma falha ao tentar cadastrar!
+  </v-snackbar>
 </template>
 
 <script>
@@ -57,6 +63,9 @@ export default {
         { value: 'gold', title: 'Ouro' }
       ],
       selectPlan: 'bronze',
+      snackbarSucess: false,
+      snackbarError: false,
+      duration: 2000,
 
       errors: {}
     }
@@ -74,7 +83,6 @@ export default {
           .email('Forneça um endereço de email válido.'),
         password: yup
           .string()
-
           .min(8, 'A senha deve possuir no mínimo 8 caracteres')
           .max(20, 'Limite excedido, a senha deve ter entre 8-20 caracteres.')
           .required('Digite sua senha.'),
@@ -96,7 +104,6 @@ export default {
           },
           { abortEarly: false }
         )
-
         this.errors = {}
 
         axios
@@ -107,16 +114,17 @@ export default {
             type_plan: this.selectPlan
           })
           .then(() => {
-            alert('Cadastrado com sucesso')
-
-            this.$router.push('/login')
+            this.snackbarSucess = true
+            setTimeout(() => {
+              this.$router.push('/login')
+            }, this.duration)
           })
           .catch((error) => {
             console.log(error)
             if (error.response?.data?.message) {
               alert(error.response.data.message)
             } else {
-              alert('Houve uma falha ao tentar cadastrar')
+              this.snackbarError = true
             }
           })
       } catch (error) {
