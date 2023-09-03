@@ -90,7 +90,7 @@
       :error-messages="errors.complement"
     ></v-text-field>
 
-    <v-btn type="">Cadastrar</v-btn>
+    <v-btn type="submit">Cadastrar</v-btn>
   </v-form>
 
   <v-snackbar v-model="snackbarSucess" :timeout="tempoExibicao" color="success" location="top">
