@@ -1,7 +1,7 @@
 <template>
   <h1><v-icon>mdi-account-multiple</v-icon>Treino</h1>
 
-  <v-form @submit.prevent="createTraining">
+  <v-form ref="form" @submit.prevent="createTraining">
     <v-select
       v-model="selectedExercise"
       label="Exercício"
@@ -46,6 +46,13 @@
     <router-link to="/students"><v-btn>Cancelar</v-btn></router-link>
     <v-btn type="submit">Cadastrar</v-btn>
   </v-form>
+
+  <v-snackbar v-model="snackbarSuccess" :timeout="duration" color="success" location="top">
+    Treino cadastrado com sucesso!
+  </v-snackbar>
+  <v-snackbar v-model="snackbarError" :timeout="duration" color="red" location="top">
+    Houve uma falha ao tentar cadastrar o treino!
+  </v-snackbar>
 </template>
 
 <script>
@@ -55,6 +62,7 @@ import { captureErrorYup } from '../../utils/captureErrorYup'
 export default {
   data() {
     return {
+      studentId: this.$route.params.id,
       exercises: [],
       selectedExercise: '',
       repetitions: null,
@@ -71,7 +79,11 @@ export default {
         { value: 'sabado', title: 'Sábado' }
       ],
       comments: '',
-      errors: []
+      errors: [],
+
+      snackbarSuccess: false,
+      snackbarError: false,
+      duration: 2000
     }
   },
   mounted() {
@@ -103,6 +115,26 @@ export default {
           { abortEarly: false }
         )
         this.errors = {}
+
+        axios
+          .post('http://localhost:3000/workouts', {
+            student_id: this.studentId,
+            exercise_id: this.selectedExercise,
+            repetitions: this.repetitions,
+            weight: this.weight,
+            break_time: this.breakTime,
+            day: this.weekDay,
+            observations: this.comments
+          })
+          .then(() => {
+            this.snackbarSuccess = true
+            this.$refs.form.reset()
+            this.weekDay = this.currentWeekDay()
+          })
+          .catch((error) => {
+            console.log(error)
+            this.snackbarError = true
+          })
       } catch (error) {
         if (error instanceof yup.ValidationError) {
           console.log(error)
