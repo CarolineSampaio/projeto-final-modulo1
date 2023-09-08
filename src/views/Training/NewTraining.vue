@@ -59,6 +59,8 @@
 import axios from 'axios'
 import * as yup from 'yup'
 import { captureErrorYup } from '../../utils/captureErrorYup'
+import { getToken } from '../../utils/auth'
+
 export default {
   data() {
     return {
@@ -83,7 +85,8 @@ export default {
 
       snackbarSuccess: false,
       snackbarError: false,
-      duration: 2000
+      duration: 2000,
+      token: getToken()
     }
   },
   mounted() {
@@ -92,9 +95,13 @@ export default {
   },
   methods: {
     getExercises() {
-      axios.get('http://localhost:3000/exercises').then(({ data }) => {
-        this.exercises = data
-      })
+      axios
+        .get('http://localhost:3000/exercises', {
+          headers: {
+            Authorization: `Bearer ${this.token}`
+          }
+        })
+        .then(({ data }) => (this.exercises = data))
     },
     createTraining() {
       const schema = yup.object().shape({
@@ -117,15 +124,23 @@ export default {
         this.errors = {}
 
         axios
-          .post('http://localhost:3000/workouts', {
-            student_id: this.studentId,
-            exercise_id: this.selectedExercise,
-            repetitions: this.repetitions,
-            weight: this.weight,
-            break_time: this.breakTime,
-            day: this.weekDay,
-            observations: this.comments
-          })
+          .post(
+            'http://localhost:3000/workouts',
+            {
+              student_id: this.studentId,
+              exercise_id: this.selectedExercise,
+              repetitions: this.repetitions,
+              weight: this.weight,
+              break_time: this.breakTime,
+              day: this.weekDay,
+              observations: this.comments
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${this.token}`
+              }
+            }
+          )
           .then(() => {
             this.snackbarSuccess = true
             this.$refs.form.reset()
