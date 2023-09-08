@@ -5,16 +5,7 @@
 
   <div v-for="workout in workoutTable[2]" :key="workout">
     <v-checkbox
-      :label="
-        workout.exercise_description +
-        ' | ' +
-        workout.weight +
-        'KG | ' +
-        workout.repetitions +
-        ' repetições | ' +
-        workout.break_time +
-        ' segundos de pausa'
-      "
+      :label="`${workout.exercise_description} | ${workout.weight}KG | ${workout.repetitions} repetições | ${workout.break_time} segundos de pausa`"
       v-model="workout.checked"
       v-bind:true-value="1"
       @click="markAsChecked(workout.id)"
