@@ -44,6 +44,8 @@
 
 <script>
 import axios from 'axios'
+import { getToken } from '../../utils/auth'
+
 export default {
   data() {
     return {
@@ -52,7 +54,8 @@ export default {
       weekDays: ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'],
       workoutTable: [[], [], [], [], [], [], []],
       today: new Date().getDay(),
-      activeTab: null
+      activeTab: null,
+      token: getToken()
     }
   },
   mounted() {
@@ -62,7 +65,11 @@ export default {
   methods: {
     getTraining() {
       axios
-        .get(`http://localhost:3000/workouts?student_id=${this.studentId}`)
+        .get(`http://localhost:3000/workouts?student_id=${this.studentId}`, {
+          headers: {
+            Authorization: `Bearer ${this.token}`
+          }
+        })
         .then(({ data }) => this.createWorkoutTable(data.workouts))
         .catch((error) => {
           console.log(error)
@@ -80,11 +87,19 @@ export default {
       console.log(this.weekDays[this.today], this.studentId, workout_id)
 
       axios
-        .post('http://localhost:3000/workouts/check', {
-          workout_id,
-          student_id: this.studentId,
-          day_of_week: this.weekDays[this.today]
-        })
+        .post(
+          'http://localhost:3000/workouts/check',
+          {
+            workout_id,
+            student_id: this.studentId,
+            day_of_week: this.weekDays[this.today]
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`
+            }
+          }
+        )
         .then(() => console.log('Marcado como feito'))
         .catch((error) => {
           console.log(error)

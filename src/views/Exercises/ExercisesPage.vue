@@ -38,6 +38,7 @@
 import axios from 'axios'
 import * as yup from 'yup'
 import { captureErrorYup } from '../../utils/captureErrorYup'
+import { getToken } from '../../utils/auth'
 
 export default {
   data() {
@@ -46,7 +47,8 @@ export default {
       description: '',
       errors: [],
       snackbar: false,
-      duration: 2000
+      duration: 2000,
+      token: getToken()
     }
   },
   mounted() {
@@ -55,7 +57,11 @@ export default {
   methods: {
     getExercises() {
       axios
-        .get('http://localhost:3000/exercises')
+        .get('http://localhost:3000/exercises', {
+          headers: {
+            Authorization: `Bearer ${this.token}`
+          }
+        })
         .then((response) => {
           console.log(response.data)
           this.exercises = response.data
@@ -79,9 +85,17 @@ export default {
         this.errors = {}
 
         axios
-          .post('http://localhost:3000/exercises', {
-            description: this.description
-          })
+          .post(
+            'http://localhost:3000/exercises',
+            {
+              description: this.description
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${this.token}`
+              }
+            }
+          )
           .then((response) => {
             console.log(response.data)
             this.snackbar = true
