@@ -101,9 +101,7 @@ export default {
             Authorization: `Bearer ${this.token}`
           }
         })
-        .then(({ data }) => {
-          this.exercises = data
-        })
+        .then(({ data }) => (this.exercises = data))
     },
     createTraining() {
       const schema = yup.object().shape({
