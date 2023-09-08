@@ -1,17 +1,26 @@
 <template>
-  <h1><v-icon>mdi-account-multiple</v-icon>Treinos</h1>
+  <h1><v-icon>mdi-account-multiple</v-icon>Treinos - {{ studentName }}</h1>
 
   <h2>Hoje</h2>
 
-  <v-row v-for="workout in workoutTable[today]" :key="workout" cols="12" md="4">
+  <div v-for="workout in workoutTable[2]" :key="workout">
     <v-checkbox
-      label="Checkbox"
+      :label="
+        workout.exercise_description +
+        ' | ' +
+        workout.weight +
+        'KG | ' +
+        workout.repetitions +
+        ' repetições | ' +
+        workout.break_time +
+        ' segundos de pausa'
+      "
       v-model="workout.checked"
       v-bind:true-value="1"
       @click="markAsChecked(workout.id)"
+      hide-details
     ></v-checkbox>
-    {{ workout.exercise_description }}
-  </v-row>
+  </div>
 
   <v-card>
     <v-tabs v-model="activeTab" align-tabs="center">
@@ -26,9 +35,16 @@
     <v-window v-model="activeTab">
       <v-window-item v-for="workoutDay in workoutTable" :key="workoutDay">
         <v-container fluid>
-          <v-row v-for="workout in workoutDay" :key="workout" cols="12" md="4">
-            {{ workout.exercise_description }}
-          </v-row>
+          <v-table>
+            <tbody>
+              <tr v-for="workout in workoutDay" :key="workout">
+                <td>{{ workout.exercise_description }}</td>
+                <td>{{ workout.weight }}KG</td>
+                <td>{{ workout.repetitions }} repetições</td>
+                <td>{{ workout.break_time }} segundos de pausa</td>
+              </tr>
+            </tbody>
+          </v-table>
         </v-container>
       </v-window-item>
     </v-window>
@@ -41,6 +57,7 @@ export default {
   data() {
     return {
       studentId: this.$route.params.id,
+      studentName: '',
       weekDays: ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'],
       workoutTable: [[], [], [], [], [], [], []],
       today: new Date().getDay(),
@@ -65,6 +82,7 @@ export default {
       trainings.forEach((training) => {
         const weekDay = this.weekDays.indexOf(training.day)
         this.workoutTable[weekDay].push(training)
+        this.studentName = this.studentName || training.student_name
       })
     },
     markAsChecked(workout_id) {
