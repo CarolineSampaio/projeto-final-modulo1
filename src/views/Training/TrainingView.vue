@@ -87,6 +87,18 @@ export default {
     },
     markAsChecked(workout_id) {
       console.log(this.weekDays[this.today], this.studentId, workout_id)
+
+      axios
+        .post('http://localhost:3000/workouts/check', {
+          workout_id,
+          student_id: this.studentId,
+          day_of_week: this.weekDays[this.today]
+        })
+        .then(() => console.log('Marcado como feito'))
+        .catch((error) => {
+          console.log(error)
+          alert('Houve um erro ao marcar como feito')
+        })
     }
   }
 }
