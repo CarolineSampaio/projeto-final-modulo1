@@ -15,44 +15,79 @@ const routes = createRouter({
     {
       path: '/',
       name: 'Dashboard',
-      component: Dashboard
+      component: Dashboard,
+      meta: { requiresAuth: true }
     },
     {
       path: '/exercises',
       name: 'Exercises',
-      component: Exercises
+      component: Exercises,
+      meta: { requiresAuth: true }
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: { requiresGuest: true }
     },
     {
       path: '/signup',
       name: 'SignUp',
-      component: SignUp
+      component: SignUp,
+      meta: { requiresGuest: true }
     },
     {
       path: '/students/new',
       name: 'NewStudent',
-      component: NewStudent
+      component: NewStudent,
+      meta: { requiresAuth: true }
     },
     {
       path: '/students',
       name: 'StudentManagement',
-      component: StudentManagement
+      component: StudentManagement,
+      meta: { requiresAuth: true }
     },
     {
       path: '/training/new/:id',
       name: 'NewTraining',
-      component: NewTraining
+      component: NewTraining,
+      meta: { requiresAuth: true }
     },
     {
       path: '/training/:id',
       name: 'TrainingView',
-      component: TrainingView
+      component: TrainingView,
+      meta: { requiresAuth: true }
     }
   ]
+})
+
+routes.beforeEach((to, from, next) => {
+  const isLoggedIn = !!localStorage.getItem('logged_user')
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (to.path === '/' && !isLoggedIn) {
+      next({
+        path: '/login'
+      })
+    } else if (to.path !== '/' && !isLoggedIn) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else if (to.matched.some((record) => record.meta.requiresGuest)) {
+    if (isLoggedIn) {
+      next({ path: '/' })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default routes
