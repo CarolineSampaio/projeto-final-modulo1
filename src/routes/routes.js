@@ -65,26 +65,16 @@ const routes = createRouter({
 
 routes.beforeEach((to, from, next) => {
   const isLoggedIn = !!localStorage.getItem('logged_user')
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+  const requiresGuest = to.matched.some((record) => record.meta.requiresGuest)
 
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (to.path === '/' && !isLoggedIn) {
-      next({
-        path: '/login'
-      })
-    } else if (to.path !== '/' && !isLoggedIn) {
-      next({
-        path: '/login',
-        query: { redirect: to.fullPath }
-      })
-    } else {
-      next()
-    }
-  } else if (to.matched.some((record) => record.meta.requiresGuest)) {
-    if (isLoggedIn) {
-      next({ path: '/' })
-    } else {
-      next()
-    }
+  if (requiresAuth && !isLoggedIn) {
+    next({
+      path: '/login',
+      query: to.path !== '/' ? { redirect: to.fullPath } : null
+    })
+  } else if (requiresGuest && isLoggedIn) {
+    next({ path: '/' })
   } else {
     next()
   }
