@@ -35,12 +35,15 @@
 </template>
 <script>
 import axios from 'axios'
+import { getToken } from '../../utils/auth'
+
 export default {
   data() {
     return {
       search: '',
       students: [],
-      filteredStudents: []
+      filteredStudents: [],
+      token: getToken()
     }
   },
   mounted() {
@@ -48,9 +51,15 @@ export default {
   },
   methods: {
     getStudents() {
-      axios.get('http://localhost:3000/students').then(({ data }) => {
-        this.students = this.filteredStudents = data.students
-      })
+      axios
+        .get('http://localhost:3000/students', {
+          headers: {
+            Authorization: `Bearer ${this.token}`
+          }
+        })
+        .then(({ data }) => {
+          this.students = this.filteredStudents = data.students
+        })
     },
     searchStudents() {
       this.filteredStudents = this.students.filter((student) => {

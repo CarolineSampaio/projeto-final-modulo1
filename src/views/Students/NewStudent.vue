@@ -105,6 +105,7 @@
 import * as yup from 'yup'
 import { captureErrorYup } from '../../utils/captureErrorYup'
 import axios from 'axios'
+import { getToken } from '../../utils/auth'
 
 const schema = yup.object().shape({
   name: yup.string().required('O nome é obrigatório.'),
@@ -138,6 +139,7 @@ export default {
       snackbarSucess: false,
       snackbarError: false,
       duration: 2000,
+      token: getToken(),
 
       errors: {}
     }
@@ -191,7 +193,11 @@ export default {
       }
 
       axios
-        .post('http://localhost:3000/students', student)
+        .post('http://localhost:3000/students', student, {
+          headers: {
+            Authorization: `Bearer ${this.token}`
+          }
+        })
         .then((response) => {
           console.log(response.data)
           this.snackbarSucess = true

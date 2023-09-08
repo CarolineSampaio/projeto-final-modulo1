@@ -29,13 +29,15 @@
 
 <script>
 import axios from 'axios'
+import { getToken } from '../../utils/auth'
 
 export default {
   data() {
     return {
       userName: '',
       amountStudents: 0,
-      amountExercises: 0
+      amountExercises: 0,
+      token: getToken()
     }
   },
   mounted() {
@@ -48,7 +50,11 @@ export default {
     },
     getInfo() {
       axios
-        .get('http://localhost:3000/dashboard')
+        .get('http://localhost:3000/dashboard', {
+          headers: {
+            Authorization: `Bearer ${this.token}`
+          }
+        })
         .then((response) => {
           console.log(response.data)
           this.amountExercises = response.data.amount_exercises
