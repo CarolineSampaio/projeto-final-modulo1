@@ -1,6 +1,10 @@
 <template>
   <div class="d-flex ma-0 pa-0 container">
     <section class="left">
+      <div class="float">
+        <h3>Em qualquer hora ou lugar...</h3>
+        <span class="text-h3">Gerencie <span class="type-it"></span></span>
+      </div>
       <img
         src="../../assets/bg_login.jpg"
         alt="imagem com barra e peso academia no chão."
@@ -48,6 +52,7 @@
 import * as yup from 'yup'
 import { captureErrorYup } from '../../utils/captureErrorYup'
 import axios from 'axios'
+import TypeIt from 'typeit'
 
 export default {
   data() {
@@ -115,7 +120,33 @@ export default {
           this.errors = captureErrorYup(error)
         }
       }
+    },
+    typeIt() {
+      new TypeIt('.type-it', {
+        speed: 150,
+        startDelay: 1000,
+        waitUntilVisible: true,
+        loop: true
+      })
+        .type('treinos!', { delay: 400 })
+        .pause(600)
+        .delete(8)
+        .type('exercícios!', { delay: 400 })
+        .pause(600)
+        .delete(11)
+        .type('alunos!', { delay: 400 })
+        .pause(600)
+        .delete(7)
+        .type('sua ', { delay: 400 })
+        .pause(300)
+        .type('academia!', { delay: 400 })
+        .pause(1000)
+        .delete(12)
+        .go()
     }
+  },
+  mounted() {
+    this.typeIt()
   }
 }
 </script>
@@ -129,14 +160,30 @@ section,
 section.left {
   background-color: #292929;
   width: 70%;
+  overflow: hidden;
 }
 .background {
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0.4;
+  z-index: -1;
 }
-
+.float {
+  position: absolute;
+  top: 54%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  color: #fff4d3;
+  font-size: 2rem;
+  font-weight: bold;
+  width: 55vh;
+  z-index: 1;
+}
+.type-it {
+  font-weight: bold;
+  color: #ffc107;
+}
 section.right {
   width: 30%;
 }
@@ -148,7 +195,7 @@ section.right {
   width: 60%;
 }
 a {
-  color: #ffb300;
+  color: #ffc107;
   font-weight: bold;
   text-decoration: none;
 }
