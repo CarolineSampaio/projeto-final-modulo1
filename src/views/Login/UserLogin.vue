@@ -1,22 +1,46 @@
 <template>
-  <v-form @submit.prevent="handleLogin">
-    <v-text-field
-      v-model="email"
-      label="E-mail"
-      type="email"
-      :error-messages="errors.email"
-    ></v-text-field>
-    <v-text-field
-      v-model="password"
-      label="Senha"
-      type="password"
-      :error-messages="errors.password"
-    ></v-text-field>
-    <v-btn type="submit">Logar</v-btn>
-  </v-form>
+  <div class="d-flex ma-0 pa-0 container">
+    <section class="left">
+      <img
+        src="../../assets/bg_login.jpg"
+        alt="imagem com barra e peso academia no chão."
+        class="background"
+      />
+    </section>
+    <section class="d-flex flex-column justify-center align-center right">
+      <img
+        src="../../assets/gofit_logo.svg"
+        alt="logo do sistema go!fit, no o possui o desenho de uma anilha."
+        class="mb-10 logo"
+      />
+      <p class="text-h6 text-grey-darken-1 mb-5">Acesse sua conta</p>
+      <v-form @submit.prevent="handleLogin" class="d-flex flex-column justify-center">
+        <v-text-field
+          v-model="email"
+          label="E-mail"
+          type="email"
+          :error-messages="errors.email"
+          variant="outlined"
+        ></v-text-field>
+        <v-text-field
+          v-model="password"
+          label="Senha"
+          type="password"
+          :error-messages="errors.password"
+          variant="outlined"
+        ></v-text-field>
+        <v-btn
+          type="submit"
+          color="amber text-white"
+          class="font-weight-bold mb-6"
+          size="x-large"
+          variant="flat"
+          >Entrar</v-btn
+        >
+      </v-form>
 
-  <div>
-    <p>Ainda não tem conta?<router-link to="/signup"> Cadastre-se</router-link></p>
+      <p>Ainda não tem conta? <router-link to="/signup">Cadastre-se</router-link></p>
+    </section>
   </div>
 </template>
 
@@ -95,3 +119,37 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+section,
+.container {
+  height: 100%;
+  width: 100%;
+}
+section.left {
+  background-color: #292929;
+  width: 70%;
+}
+.background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+}
+
+section.right {
+  width: 30%;
+}
+.v-form {
+  width: 70%;
+  gap: 8px;
+}
+.logo {
+  width: 60%;
+}
+a {
+  color: #ffb300;
+  font-weight: bold;
+  text-decoration: none;
+}
+</style>

@@ -3,3 +3,22 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #424242;
+  height: 100%;
+  width: 100%;
+}
+
+html {
+  overflow: auto !important;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
