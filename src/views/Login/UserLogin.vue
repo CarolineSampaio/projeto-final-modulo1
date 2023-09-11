@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex ma-0 pa-0 container">
-    <section class="left">
+    <section class="left hidden-md-and-down">
       <div class="float">
         <h3>Em qualquer hora ou lugar...</h3>
         <span class="text-h3">Gerencie <span class="type-it"></span></span>
@@ -11,11 +11,15 @@
         class="background"
       />
     </section>
-    <section class="d-flex flex-column justify-center align-center right">
+    <section
+      class="d-flex flex-column justify-center align-center right"
+      :style="mdAndDown ? 'width: 100%' : 'width: 30%'"
+    >
       <img
         src="../../assets/gofit_logo.svg"
         alt="logo do sistema go!fit, no o possui o desenho de uma anilha."
-        class="mb-10 logo"
+        class="mb-10"
+        :style="mdAndDown ? 'width: 50%' : 'width: 60%'"
       />
       <p class="text-h6 text-grey-darken-1 mb-5">Acesse sua conta</p>
       <v-form @submit.prevent="handleLogin" class="d-flex flex-column justify-center">
@@ -35,7 +39,7 @@
         ></v-text-field>
         <v-btn
           type="submit"
-          color="amber text-white"
+          color="amber text-grey-darken-3"
           class="font-weight-bold mb-6"
           size="x-large"
           variant="flat"
@@ -47,6 +51,11 @@
     </section>
   </div>
 </template>
+
+<script setup>
+import { useDisplay } from 'vuetify'
+const { mdAndDown } = useDisplay()
+</script>
 
 <script>
 import * as yup from 'yup'
@@ -177,7 +186,7 @@ section.left {
   color: #fff4d3;
   font-size: 2rem;
   font-weight: bold;
-  width: 55vh;
+  min-width: 55vh;
   z-index: 1;
 }
 .type-it {
@@ -191,12 +200,12 @@ section.right {
   width: 70%;
   gap: 8px;
 }
-.logo {
-  width: 60%;
-}
 a {
-  color: #ffc107;
+  color: #292929;
   font-weight: bold;
   text-decoration: none;
+}
+a:hover {
+  color: #ffc107;
 }
 </style>
