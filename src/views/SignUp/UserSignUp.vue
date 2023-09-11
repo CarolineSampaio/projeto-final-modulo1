@@ -1,48 +1,96 @@
 <template>
-  <v-form @submit.prevent="handleCreateAccount">
-    <v-text-field
-      v-model="name"
-      label="Nome completo"
-      type="text"
-      :error-messages="errors.name"
-    ></v-text-field>
+  <div class="d-flex ma-0 pa-0 container">
+    <section class="left hidden-md-and-down">
+      <img
+        src="../../assets/bg_login.jpg"
+        alt="imagem com barra e peso academia no chão."
+        class="background"
+      />
+    </section>
+    <section class="d-flex flex-column justify-center align-center right">
+      <img
+        src="../../assets/gofit_logo.svg"
+        alt="logo do sistema go!fit, no o possui o desenho de uma anilha."
+        class="mb-10 w-25"
+      />
 
-    <v-text-field
-      v-model="email"
-      label="E-mail"
-      type="email"
-      :error-messages="errors.email"
-    ></v-text-field>
+      <p class="text-h5 text-grey-darken-1 mb-5">Crie sua conta!</p>
+      <v-form @submit.prevent="handleCreateAccount" class="d-flex flex-column">
+        <v-text-field
+          v-model="name"
+          label="Nome completo"
+          type="text"
+          :error-messages="errors.name"
+          variant="outlined"
+        ></v-text-field>
 
-    <v-text-field
-      v-model="password"
-      label="Senha"
-      type="password"
-      :error-messages="errors.password"
-    ></v-text-field>
+        <v-text-field
+          v-model="email"
+          label="E-mail"
+          type="email"
+          :error-messages="errors.email"
+          variant="outlined"
+        ></v-text-field>
 
-    <v-text-field
-      v-model="confirmPassword"
-      label="Confirme a senha"
-      type="password"
-      :error-messages="errors.confirmPassword"
-    ></v-text-field>
+        <v-text-field
+          v-model="password"
+          label="Senha"
+          type="password"
+          :error-messages="errors.password"
+          variant="outlined"
+        ></v-text-field>
 
-    <v-select
-      v-model="selectPlan"
-      label="Plano"
-      :items="typePlan"
-      :error-messages="errors.selectPlan"
-    ></v-select>
+        <v-text-field
+          v-model="confirmPassword"
+          label="Confirme a senha"
+          type="password"
+          :error-messages="errors.confirmPassword"
+          variant="outlined"
+        ></v-text-field>
 
-    <v-btn type="submit">Cadastrar</v-btn>
-  </v-form>
-  <v-snackbar v-model="snackbarSucess" :timeout="duration" color="success" location="top">
-    Cadastro realizado com sucesso!
-  </v-snackbar>
-  <v-snackbar v-model="snackbarError" :timeout="duration" color="red" location="top">
-    Houve uma falha ao tentar cadastrar!
-  </v-snackbar>
+        <v-select
+          v-model="selectPlan"
+          label="Plano"
+          :items="typePlan"
+          :error-messages="errors.selectPlan"
+          variant="outlined"
+        ></v-select>
+
+        <v-btn
+          type="submit"
+          color="amber text-grey-darken-3"
+          class="font-weight-bold"
+          size="large"
+          variant="flat"
+        >
+          Cadastrar
+        </v-btn>
+      </v-form>
+      <p class="text-body-1 text-grey-darken-1 mt-2">
+        Ao se inscrever, você concorda com os nossos termos de uso.
+      </p>
+      <div>
+        <v-snackbar
+          v-model="snackbarSucess"
+          :timeout="duration"
+          color="success"
+          location="top"
+          class="snackbar"
+        >
+          Cadastro realizado com sucesso!
+        </v-snackbar>
+        <v-snackbar
+          v-model="snackbarError"
+          :timeout="duration"
+          color="red"
+          location="top"
+          class="snackbar"
+        >
+          Houve uma falha ao tentar cadastrar!
+        </v-snackbar>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -137,3 +185,60 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+.background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+}
+section.left {
+  flex: 70%;
+  height: 100%;
+  background-color: #292929;
+  overflow: hidden;
+  animation: slideOut 2s ease;
+  animation-fill-mode: forwards;
+}
+
+section.right {
+  height: 100%;
+  flex: 30%;
+  animation: slide 2s ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide {
+  0% {
+    flex: 30%;
+  }
+  100% {
+    flex: 60%;
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    flex: 70%;
+  }
+  100% {
+    flex: 40%;
+  }
+}
+
+.v-form {
+  width: 50%;
+  gap: 16px;
+}
+
+.snackbar {
+  left: 40%;
+  top: 5%;
+}
+</style>
