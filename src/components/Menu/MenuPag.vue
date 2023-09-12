@@ -80,8 +80,7 @@ nav {
 #sidebar .v-list-item {
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+
   text-decoration: none;
 }
 
@@ -93,25 +92,25 @@ nav {
 #sidebar .v-list-item--active::before {
   position: absolute;
   content: '';
-  width: 30px;
-  height: 30px;
+  width: 70px;
+  height: 70px;
   background-color: #212121;
-  top: -30px;
+  top: -70px;
   right: 0;
-  border-radius: 1rem;
-  box-shadow: 15px 15px 0px white;
+  border-radius: 3rem;
+  box-shadow: 30px 30px 0px white;
   z-index: 1005;
 }
 #sidebar .v-list-item--active + .v-list-item::before {
   position: absolute;
   content: '';
-  width: 30px;
-  height: 30px;
+  width: 70px;
+  height: 70px;
   background-color: #212121;
   top: -4px;
   right: 0;
-  border-radius: 1rem;
-  box-shadow: 15px -15px 0px white;
+  border-radius: 3rem;
+  box-shadow: 30px -30px 0px white;
   z-index: 1005;
 }
 </style>

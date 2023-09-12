@@ -30,3 +30,7 @@ body {
 #sidebar.v-navigation-drawer .v-list {
   overflow: initial !important;
 }
+
+.v-list-item__overlay {
+  display: none;
+}
