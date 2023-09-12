@@ -11,11 +11,16 @@
       <img
         src="../../assets/gofit_logo.svg"
         alt="logo do sistema go!fit, no o possui o desenho de uma anilha."
-        class="mb-10 w-25"
+        class="mb-2 mb-lg-10"
+        :style="mdAndDown ? 'width: 50%' : 'width: 25%'"
       />
 
-      <p class="text-h5 text-grey-darken-1 mb-5">Crie sua conta!</p>
-      <v-form @submit.prevent="handleCreateAccount" class="d-flex flex-column">
+      <p class="text-h6 text-md-h5 text-grey-darken-1 mb-5">Crie sua conta!</p>
+      <v-form
+        @submit.prevent="handleCreateAccount"
+        class="d-flex flex-column"
+        :style="mdAndDown ? 'width: 85%; gap: 8px' : 'width: 50%; gap: 16px'"
+      >
         <v-text-field
           v-model="name"
           label="Nome completo"
@@ -66,9 +71,11 @@
           Cadastrar
         </v-btn>
       </v-form>
-      <p class="text-body-1 text-grey-darken-1 mt-2">
+      <p class="text-body-1 text-grey-darken-1 mt-2 px-5 text-center">
         Ao se inscrever, você concorda com os nossos termos de uso.
       </p>
+
+      <p class="mt-2"><router-link to="/login">Já tem uma conta?</router-link></p>
       <div>
         <v-snackbar
           v-model="snackbarSucess"
@@ -92,6 +99,11 @@
     </section>
   </div>
 </template>
+
+<script setup>
+import { useDisplay } from 'vuetify'
+const { mdAndDown } = useDisplay()
+</script>
 
 <script>
 import * as yup from 'yup'
@@ -203,14 +215,14 @@ section.left {
   height: 100%;
   background-color: #292929;
   overflow: hidden;
-  animation: slideOut 2s ease;
+  animation: slideOut 1s ease;
   animation-fill-mode: forwards;
 }
 
 section.right {
   height: 100%;
   flex: 30%;
-  animation: slide 2s ease;
+  animation: slide 1s ease;
   animation-fill-mode: forwards;
 }
 
@@ -231,14 +243,17 @@ section.right {
     flex: 40%;
   }
 }
-
-.v-form {
-  width: 50%;
-  gap: 16px;
-}
-
 .snackbar {
   left: 40%;
   top: 5%;
+}
+
+a {
+  color: #292929;
+  font-weight: bold;
+  text-decoration: none;
+}
+a:hover {
+  color: #ffc107;
 }
 </style>
