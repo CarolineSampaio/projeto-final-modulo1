@@ -22,3 +22,11 @@ body {
   height: 100%;
   width: 100%;
 }
+
+.v-list-item--active > .v-list-item__overlay {
+  opacity: 0 !important;
+}
+
+#sidebar.v-navigation-drawer .v-list {
+  overflow: initial !important;
+}
