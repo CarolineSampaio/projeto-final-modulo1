@@ -1,10 +1,6 @@
 <template>
-  <v-app>
-    <MenuPag v-if="renderMenu" />
-    <v-container class="container">
-      <router-view></router-view>
-    </v-container>
-  </v-app>
+  <MenuPag v-if="renderMenu" />
+  <router-view></router-view>
 </template>
 
 <script>
@@ -22,14 +18,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.container {
-  display: flex;
-  flex: 1 auto;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  margin-left: 256px !important;
-}
-</style>
