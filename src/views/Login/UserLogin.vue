@@ -18,7 +18,7 @@
       <img
         src="../../assets/gofit_logo.svg"
         alt="logo do sistema go!fit, no o possui o desenho de uma anilha."
-        class="mb-10"
+        class="mb-2 mb-lg-10"
         :style="mdAndDown ? 'width: 50%' : 'width: 60%'"
       />
       <p class="text-h6 text-grey-darken-1 mb-5">Acesse sua conta</p>
@@ -155,6 +155,7 @@ export default {
     }
   },
   mounted() {
+    document.querySelector('.type-it').innerHTML = ''
     this.typeIt()
   }
 }
