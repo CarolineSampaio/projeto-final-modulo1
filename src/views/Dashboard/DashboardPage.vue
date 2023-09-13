@@ -1,42 +1,78 @@
 <template>
   <div class="container">
-    <h1 class="my-10 font-weight-medium">Dashboard</h1>
+    <h1 class="py-12 font-weight-medium">Dashboard</h1>
 
-    <div class="d-flex justify-space-between align-center mt-16 mcards">
-      <v-card width="400px" height="700px" class="welcomeMessage">
-        <v-row class="ma-2 align-center">
+    <v-card class="welcomeMessage">
+      <v-row class="ma-2">
+        <v-col class="ml-7 my-14">
+          <h2 class="font-weight-bold">Olá, {{ userName }}!</h2>
+          <h3 class="mt-3 font-weight-medium">
+            O sucesso de seus alunos começa com você. Vamos começar!
+          </h3>
+        </v-col>
+        <v-col cols="6" class="d-flex justify-end">
+          <img
+            src="../../assets/woman_pilates.svg"
+            alt="Mulher fazendo pilates."
+            class="welcomeImage"
+          />
+        </v-col>
+      </v-row>
+    </v-card>
+
+    <div class="d-flex justify-space-between align-center mt-16 teste">
+      <v-card class="managementCards">
+        <v-row class="ma-2">
           <v-col>
-            <h2 class="font-weight-bold">Olá, {{ userName }}!</h2>
-            <h4 class="mt-3 font-weight-medium">
-              O sucesso de seus alunos começa com você. Vamos começar!
-            </h4>
+            <img
+              src="../../assets/students.svg"
+              alt="imagem vetorizada de três mulheres com roupa de academia."
+              class="imageCards"
+            />
           </v-col>
-          <v-col cols="9">
-            <img src="../../assets/woman_pilates.png" alt="Welcome" height="300" />
+          <v-col class="d-flex flex-column justify-space-evenly align-center">
+            <v-card-title class="text-h5 font-weight-bold">
+              <span class="text-h4 font-weight-bold">{{ amountStudents }}</span>
+              Alunos Cadastrados
+            </v-card-title>
+            <router-link to="/students/new">
+              <v-btn
+                size="large"
+                variant="flat"
+                color="grey-darken-3 text-amber"
+                class="font-weight-bold"
+              >
+                Adicionar Aluno
+              </v-btn>
+            </router-link>
           </v-col>
         </v-row>
       </v-card>
 
-      <v-card width="400px" height="700px" class="welcomeMessage">
-        <v-row class="ma-2 align-center">
+      <v-card class="managementCards">
+        <v-row class="ma-2">
           <v-col>
-            <img src="../../assets/woman_pilates.png" alt="Welcome" height="300" />
+            <img
+              src="../../assets/exercises.svg"
+              alt="imagem vetorizada de três mulheres com roupa de academia."
+              class="imageCards"
+            />
           </v-col>
-          <v-col cols="9">
-            <v-card-title>{{ amountStudents }} Alunos</v-card-title>
-            <router-link to="/students/new"><v-btn>Adicionar</v-btn></router-link>
-          </v-col>
-        </v-row>
-      </v-card>
-
-      <v-card width="400px" height="700px" class="welcomeMessage">
-        <v-row class="ma-2 align-center">
-          <v-col>
-            <img src="../../assets/woman_pilates.png" alt="Welcome" height="300" />
-          </v-col>
-          <v-col cols="9">
-            <v-card-title>{{ amountExercises }} Exercícios</v-card-title>
-            <router-link to="/exercises"><v-btn>Adicionar</v-btn></router-link>
+          <v-col class="d-flex flex-column justify-space-evenly align-center">
+            <v-card-title class="text-h5 font-weight-bold">
+              <span class="text-h4 font-weight-bold">{{ amountExercises }}</span>
+              Exercícios Cadastrados
+            </v-card-title>
+            <router-link to="/exercises">
+              <v-btn
+                size="large"
+                variant="flat"
+                color="grey-darken-3 text-amber"
+                class="font-weight-bold"
+              >
+                Adicionar Exercício
+              </v-btn>
+            </router-link>
           </v-col>
         </v-row>
       </v-card>
@@ -93,12 +129,23 @@ export default {
   padding-right: 5%;
 }
 .welcomeMessage {
+  width: 100%;
+  height: 22%;
   background-color: #ffca28;
   border-radius: 2rem;
-  width: 100%;
+  overflow: initial;
 }
-.cards {
-  width: 100%;
+.welcomeImage {
+  height: 35vh;
+  transform: translateY(-42%);
+}
+.managementCards {
+  width: 48%;
+  height: 50vh;
+  background-color: #ffca28;
+  border-radius: 2rem;
+}
+.imageCards {
+  height: 45vh;
 }
 </style>
-s
