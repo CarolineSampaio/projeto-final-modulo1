@@ -60,6 +60,7 @@ import axios from 'axios'
 import * as yup from 'yup'
 import { captureErrorYup } from '../../utils/captureErrorYup'
 import { getToken } from '../../utils/auth'
+import { API_URL } from '../../utils/constants'
 
 export default {
   data() {
@@ -96,7 +97,7 @@ export default {
   methods: {
     getExercises() {
       axios
-        .get('http://localhost:3000/exercises', {
+        .get(`${API_URL}/exercises`, {
           headers: {
             Authorization: `Bearer ${this.token}`
           }
@@ -125,7 +126,7 @@ export default {
 
         axios
           .post(
-            'http://localhost:3000/workouts',
+            `${API_URL}/workouts`,
             {
               student_id: this.studentId,
               exercise_id: this.selectedExercise,

@@ -109,6 +109,7 @@ const { mdAndDown } = useDisplay()
 import * as yup from 'yup'
 import { captureErrorYup } from '../../utils/captureErrorYup'
 import axios from 'axios'
+import { API_URL } from '../../utils/constants'
 
 export default {
   data() {
@@ -167,7 +168,7 @@ export default {
         this.errors = {}
 
         axios
-          .post('http://localhost:3000/users', {
+          .post(`${API_URL}/users`, {
             name: this.name,
             email: this.email,
             password: this.password,

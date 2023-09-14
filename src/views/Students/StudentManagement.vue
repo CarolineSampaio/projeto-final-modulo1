@@ -36,6 +36,7 @@
 <script>
 import axios from 'axios'
 import { getToken } from '../../utils/auth'
+import { API_URL } from '../../utils/constants'
 
 export default {
   data() {
@@ -52,7 +53,7 @@ export default {
   methods: {
     getStudents() {
       axios
-        .get('http://localhost:3000/students', {
+        .get(`${API_URL}/students`, {
           headers: {
             Authorization: `Bearer ${this.token}`
           }

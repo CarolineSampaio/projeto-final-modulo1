@@ -120,6 +120,7 @@ const { smAndDown, mdAndDown, lgAndDown } = useDisplay()
 <script>
 import axios from 'axios'
 import { getToken } from '../../utils/auth'
+import { API_URL } from '../../utils/constants'
 
 export default {
   data() {
@@ -140,7 +141,7 @@ export default {
     },
     getInfo() {
       axios
-        .get('http://localhost:3000/dashboard', {
+        .get(`${API_URL}/dashboard`, {
           headers: {
             Authorization: `Bearer ${this.token}`
           }

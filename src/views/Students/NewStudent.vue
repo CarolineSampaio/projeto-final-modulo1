@@ -106,6 +106,7 @@ import * as yup from 'yup'
 import { captureErrorYup } from '../../utils/captureErrorYup'
 import axios from 'axios'
 import { getToken } from '../../utils/auth'
+import { API_URL } from '../../utils/constants'
 
 const schema = yup.object().shape({
   name: yup.string().required('O nome é obrigatório.'),
@@ -193,7 +194,7 @@ export default {
       }
 
       axios
-        .post('http://localhost:3000/students', student, {
+        .post(`${API_URL}/students`, student, {
           headers: {
             Authorization: `Bearer ${this.token}`
           }

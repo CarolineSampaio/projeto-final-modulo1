@@ -62,6 +62,7 @@ import * as yup from 'yup'
 import { captureErrorYup } from '../../utils/captureErrorYup'
 import axios from 'axios'
 import TypeIt from 'typeit'
+import { API_URL } from '../../utils/constants'
 
 export default {
   data() {
@@ -92,7 +93,7 @@ export default {
         this.errors = {}
 
         axios
-          .post('http://localhost:3000/sessions', {
+          .post(`${API_URL}/sessions`, {
             email: this.email,
             password: this.password
           })
