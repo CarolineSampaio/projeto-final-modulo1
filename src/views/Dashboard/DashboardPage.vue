@@ -6,7 +6,7 @@
 
     <v-card class="welcomeMessage d-flex align-flex-end">
       <v-row class="ma-2">
-        <v-col class="ml-2 ml-md-7 my-4 my-md-6 my-lg-14">
+        <v-col class="ml-2 ml-md-7 my-4 my-md-6 my-lg-12">
           <h2 class="font-weight-bold">Olá, {{ userName }}!</h2>
           <h3 class="mt-3 font-weight-medium">
             O sucesso de seus alunos começa com você. Vamos começar!
@@ -20,7 +20,7 @@
             :style="
               smAndDown
                 ? 'height: 25vh; transform: translateY(-20%);'
-                : 'height: 35vh; transform: translateY(-42%);'
+                : 'height: 35vh; transform: translateY(-45%);'
             "
           />
         </v-col>
@@ -163,8 +163,6 @@ export default {
 .container {
   width: 100%;
   height: 100%;
-  padding-left: 20%;
-  padding-right: 5%;
 }
 .welcomeMessage,
 .managementCards {
