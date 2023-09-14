@@ -146,37 +146,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .container {
   width: 100%;
   min-height: 100%;
-  padding-left: 20%;
-  padding-right: 5%;
-  padding-bottom: 2%;
-}
-.cardImage {
-  border-radius: 2rem;
-  background-image: url(../../assets/bg_pags.jpg);
-  background-size: cover;
-  box-shadow:
-    12px 16px 28px -2px var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, 0.2)),
-    0px 2px 2px 0px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.14)),
-    0px 2px 4px 0px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.12)),
-    inset 1px 1px 0px 0px var(--v-shadow-key-penumbra-opacity, rgba(255, 255, 255, 0.8));
-  padding: 4%;
-}
-.cardContent {
-  padding: 4%;
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 2rem;
-  box-shadow:
-    inset 1px 1px 0px 0px var(--v-shadow-key-penumbra-opacity, rgba(255, 255, 255, 0.8)),
-    1px 1px 0px var(--v-shadow-key-penumbra-opacity, rgba(230, 230, 230, 0.8));
-}
-
-.v-table {
-  background-color: transparent !important;
 }
 </style>
