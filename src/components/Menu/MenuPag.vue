@@ -9,12 +9,13 @@
       id="sidebar"
       border="none"
     >
-      <v-list-item
-        ><img
+      <v-list-item>
+        <img
           src="../../assets/gofit_logo_white.svg"
           alt="logo do sistema go!fit, no o possui o desenho de uma anilha."
           class="my-12 pb-5 w-75 mx-auto d-block"
-      /></v-list-item>
+        />
+      </v-list-item>
 
       <v-list nav dense class="ma-0 pa-0">
         <v-list-item v-for="(item, i) in items" :key="i" :to="item.link" link :ripple="false">
@@ -22,8 +23,9 @@
             class="font-weight-bold pl-2 pl-lg-6 menuItem"
             :prepend-icon="item.icon"
             active-class="border"
-            >{{ item.text }}</v-list-item
           >
+            {{ item.text }}
+          </v-list-item>
         </v-list-item>
         <v-list-item><!-- item adicionado para permitir arredondamento borda menu --></v-list-item>
       </v-list>
@@ -56,7 +58,8 @@
                 class="my-2 my-sm-4 mx-2 mx-sm-12"
                 theme="dark"
                 variant="plain"
-              ></v-btn>
+              >
+              </v-btn>
             </template>
 
             <v-list theme="dark">
@@ -115,7 +118,7 @@ nav {
   width: 15%;
 }
 
-/* Estilo arredondamento bordas menu */
+/* Estilo para arredondar bordas menu */
 #sidebar .v-list-item {
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
