@@ -1,5 +1,5 @@
 <template>
-  <h1><v-icon>mdi-account-multiple</v-icon>Treino</h1>
+  <h1><v-icon>mdi-account-multiple</v-icon>Treino para {{ this.studentName }}</h1>
 
   <v-form ref="form" @submit.prevent="createTraining">
     <v-select
@@ -66,6 +66,7 @@ export default {
   data() {
     return {
       studentId: this.$route.params.id,
+      studentName: '',
       exercises: [],
       selectedExercise: '',
       repetitions: null,
@@ -91,6 +92,7 @@ export default {
     }
   },
   mounted() {
+    this.getStudentName()
     this.getExercises()
     this.weekDay = this.currentWeekDay()
   },
@@ -161,6 +163,25 @@ export default {
     currentWeekDay() {
       const weekDay = new Date().getDay()
       return this.weekList[weekDay].value
+    },
+    getStudentName() {
+      /* Como a API não está preparada para retornar via id, estou fazendo uma requisição para buscar todos os alunos
+      e em seguida, filtrando para pegar o nome do aluno correspondente ao id da url*/
+      axios
+        .get(`${API_URL}/students`, {
+          headers: {
+            Authorization: `Bearer ${this.token}`
+          }
+        })
+        .then(({ data }) => {
+          const studentId = parseInt(this.studentId)
+          const lista = data.students
+          const alunoEncontrado = lista.find((aluno) => aluno.id === studentId)
+
+          if (alunoEncontrado) {
+            this.studentName = alunoEncontrado.name
+          }
+        })
     }
   },
   computed: {

@@ -60,6 +60,7 @@ export default {
     }
   },
   mounted() {
+    this.getStudentName()
     this.getTraining()
     this.activeTab = this.today
   },
@@ -81,7 +82,6 @@ export default {
       trainings.forEach((training) => {
         const weekDay = this.weekDays.indexOf(training.day)
         this.workoutTable[weekDay].push(training)
-        this.studentName = this.studentName || training.student_name
       })
     },
     markAsChecked(workout_id) {
@@ -105,6 +105,25 @@ export default {
         .catch((error) => {
           console.log(error)
           alert('Houve um erro ao marcar como feito')
+        })
+    },
+    getStudentName() {
+      /* Como a API não está preparada para retornar via id, estou fazendo uma requisição para buscar todos os alunos
+      e em seguida, filtrando para pegar o nome do aluno correspondente ao id da url*/
+      axios
+        .get(`${API_URL}/students`, {
+          headers: {
+            Authorization: `Bearer ${this.token}`
+          }
+        })
+        .then(({ data }) => {
+          const studentId = parseInt(this.studentId)
+          const lista = data.students
+          const alunoEncontrado = lista.find((aluno) => aluno.id === studentId)
+
+          if (alunoEncontrado) {
+            this.studentName = alunoEncontrado.name
+          }
         })
     }
   }
