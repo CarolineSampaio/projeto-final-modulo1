@@ -129,7 +129,7 @@ export default {
       selectedExercise: '',
       repetitions: null,
       weight: null,
-      breakTime: '',
+      breakTime: '00:00',
       weekDay: '',
       weekList: [
         { value: 'domingo', title: 'Domingo' },
