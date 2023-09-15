@@ -42,13 +42,15 @@
     <v-row class="hidden-lg-and-up">
       <v-col cols="12" class="pa-0 ma-0">
         <v-card-title
-          class="bg-grey-darken-3 d-flex align-center justify-space-between pt-4 pl-8 pl-sm-4"
+          class="bg-grey-darken-4 d-flex align-center justify-space-between pt-4 pl-8 pl-sm-4"
         >
-          <img
-            src="../../assets/gofit_logo_white.svg"
-            alt="logo do sistema go!fit, no o possui o desenho de uma anilha."
-            :style="mdAndUp ? 'width: 20%; margin-left: 5%' : 'width: 30%'"
-          />
+          <router-link to="/">
+            <img
+              src="../../assets/gofit_logo_white.svg"
+              alt="logo do sistema go!fit, no o possui o desenho de uma anilha."
+              :style="mdAndUp ? 'width: 20%; margin-left: 5%' : 'width: 30%'"
+            />
+          </router-link>
 
           <v-menu theme="dark" class="menu-dropdown">
             <template v-slot:activator="{ props }">
