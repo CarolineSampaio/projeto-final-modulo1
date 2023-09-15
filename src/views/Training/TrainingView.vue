@@ -45,6 +45,7 @@
 <script>
 import axios from 'axios'
 import { getToken } from '../../utils/auth'
+import { API_URL } from '../../utils/constants'
 
 export default {
   data() {
@@ -65,7 +66,7 @@ export default {
   methods: {
     getTraining() {
       axios
-        .get(`http://localhost:3000/workouts?student_id=${this.studentId}`, {
+        .get(`${API_URL}/workouts?student_id=${this.studentId}`, {
           headers: {
             Authorization: `Bearer ${this.token}`
           }
@@ -88,7 +89,7 @@ export default {
 
       axios
         .post(
-          'http://localhost:3000/workouts/check',
+          `${API_URL}/workouts/check`,
           {
             workout_id,
             student_id: this.studentId,

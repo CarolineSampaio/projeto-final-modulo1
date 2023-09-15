@@ -3,3 +3,79 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #424242;
+  height: 100%;
+  width: 100%;
+}
+
+html {
+  overflow: auto !important;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+/* Estilo menu */
+.v-list-item--active > .v-list-item__overlay {
+  opacity: 0 !important;
+}
+#sidebar.v-navigation-drawer .v-list {
+  overflow: initial !important;
+}
+.v-list-item__overlay {
+  display: none;
+}
+.v-list-item__prepend > .v-icon {
+  margin-inline-end: 25px !important;
+}
+.menu-dropdown {
+  width: 100%;
+}
+.menu-dropdown .v-overlay__content {
+  max-width: 100% !important;
+  min-width: 100%;
+  width: 100%;
+  left: 0 !important;
+  top: 65px !important;
+}
+a {
+  text-decoration: none;
+}
+
+/* Estilo card páginas exercícios, aluno e treino */
+.container {
+  padding-left: 20%;
+  padding-right: 5%;
+  padding-bottom: 2%;
+}
+.cardImage {
+  border-radius: 2rem;
+  background-image: url(bg_pags.jpg);
+  background-size: cover;
+  box-shadow:
+    8px 10px 28px -2px var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, 0.2)),
+    0px 2px 2px 0px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, 0.14)),
+    inset 1px 1px 0px 0px var(--v-shadow-key-penumbra-opacity, rgba(255, 255, 255, 0.8));
+  padding: 4%;
+}
+.cardContent {
+  padding: 4%;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 2rem;
+  box-shadow:
+    inset 1px 1px 0px 0px var(--v-shadow-key-penumbra-opacity, rgba(255, 255, 255, 0.8)),
+    1px 1px 0px var(--v-shadow-key-penumbra-opacity, rgba(230, 230, 230, 0.8));
+}
+.v-table {
+  background-color: transparent !important;
+}
