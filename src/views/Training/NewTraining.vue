@@ -21,7 +21,8 @@
                 variant="outlined"
                 :error-messages="errors.selectedExercise"
                 noDataText="Nenhum exercício encontrado"
-              ></v-autocomplete>
+              >
+              </v-autocomplete>
             </v-col>
             <v-col cols="12" md="4">
               <v-text-field
@@ -30,7 +31,8 @@
                 type="number"
                 variant="outlined"
                 :error-messages="errors.repetitions"
-              ></v-text-field>
+              >
+              </v-text-field>
             </v-col>
             <v-col cols="12" md="4">
               <v-text-field
@@ -39,7 +41,8 @@
                 type="number"
                 variant="outlined"
                 :error-messages="errors.weight"
-              ></v-text-field>
+              >
+              </v-text-field>
             </v-col>
             <v-col cols="12" md="4">
               <v-text-field
@@ -52,7 +55,8 @@
                 :rules="breakTimeRules"
                 onclick="this.showPicker()"
                 onfocus="this.showPicker()"
-              ></v-text-field>
+              >
+              </v-text-field>
             </v-col>
             <v-col cols="12">
               <v-select
@@ -61,29 +65,34 @@
                 :items="weekList"
                 variant="outlined"
                 :error-messages="errors.weekDay"
-              ></v-select>
+              >
+              </v-select>
             </v-col>
             <v-col cols="12">
               <v-textarea v-model="comments" label="Observações" variant="outlined"></v-textarea>
             </v-col>
             <v-col cols="12" class="d-flex justify-center">
-              <router-link to="/students"
-                ><v-btn
+              <router-link to="/students">
+                <v-btn
                   variant="elevated"
+                  size="large"
                   color="amber text-dark-grey-4"
                   class="font-weight-bold px-sm-2 px-md-10 mr-1 mr-md-4"
                   :ripple="false"
-                  >Voltar</v-btn
-                ></router-link
-              >
+                >
+                  Voltar
+                </v-btn>
+              </router-link>
               <v-btn
                 type="submit"
                 variant="elevated"
+                size="large"
                 color="grey-darken-4 text-amber"
                 class="font-weight-bold px-sm-2 px-md-10 ml-1 ml-md-4"
                 :ripple="false"
-                >Cadastrar</v-btn
               >
+                Cadastrar
+              </v-btn>
             </v-col>
           </v-row>
         </v-form>

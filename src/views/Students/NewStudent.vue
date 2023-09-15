@@ -135,6 +135,18 @@
             </v-col>
 
             <v-col class="d-flex justify-center pt-sm-6 pb-sm-0">
+              <router-link to="/students">
+                <v-btn
+                  variant="elevated"
+                  color="amber text-dark-grey-4"
+                  class="font-weight-bold px-sm-2 px-md-10 mr-1 mr-md-4"
+                  :ripple="false"
+                  size="large"
+                >
+                  Voltar
+                </v-btn>
+              </router-link>
+
               <v-btn
                 type="submit"
                 variant="elevated"
