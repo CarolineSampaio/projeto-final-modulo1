@@ -14,7 +14,7 @@
             class="font-weight-bold px-md-10"
             height="45px"
             :ripple="false"
-            :style="smAndDown ? 'margin-bottom:8%' : 'margin-bottom:4%'"
+            :style="smAndDown ? 'width:100%; margin-bottom:8%' : 'margin-bottom:4%'"
           >
             Cadastrar Aluno
           </v-btn>
