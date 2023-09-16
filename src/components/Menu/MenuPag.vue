@@ -10,11 +10,13 @@
       border="none"
     >
       <v-list-item>
-        <img
-          src="../../assets/gofit_logo_white.svg"
-          alt="logo do sistema go!fit, no o possui o desenho de uma anilha."
-          class="my-12 pb-5 w-75 mx-auto d-block"
-        />
+        <router-link to="/">
+          <img
+            src="../../assets/gofit_logo_white.svg"
+            alt="logo do sistema go!fit, no o possui o desenho de uma anilha."
+            class="my-12 pb-5 w-75 mx-auto d-block"
+          />
+        </router-link>
       </v-list-item>
 
       <v-list nav dense class="ma-0 pa-0">
@@ -22,6 +24,7 @@
           <v-list-item
             class="font-weight-bold pl-2 pl-lg-6 menuItem"
             :prepend-icon="item.icon"
+            :active="isChildrenActive(item)"
             active-class="border"
           >
             {{ item.text }}
@@ -110,6 +113,11 @@ export default {
     logout() {
       localStorage.removeItem('logged_user')
       this.$router.push('/login')
+    },
+    isChildrenActive(item) {
+      if (item.link === '/students') {
+        return this.$route.path === item.link || this.$route.path.includes('training')
+      }
     }
   }
 }
@@ -128,12 +136,14 @@ nav {
   text-decoration: none;
 }
 
-#sidebar .v-list-item--active {
+#sidebar a.v-list-item--active,
+#sidebar a:has(.v-list-item--active) {
   background: #fff;
   color: #424242;
   margin-right: -10px;
 }
-#sidebar .v-list-item--active::before {
+#sidebar a.v-list-item--active::before,
+#sidebar a:has(.v-list-item--active)::before {
   position: absolute;
   content: '';
   width: 70px;
@@ -145,7 +155,8 @@ nav {
   box-shadow: 30px 30px 0px white;
   z-index: 1005;
 }
-#sidebar .v-list-item--active + .v-list-item::before {
+#sidebar a.v-list-item--active + .v-list-item::before,
+#sidebar a:has(.v-list-item--active) + .v-list-item::before {
   position: absolute;
   content: '';
   width: 70px;
@@ -171,11 +182,12 @@ nav {
   );
 }
 
-.v-list-item--active:hover .v-list-item {
+a.v-list-item--active:hover .v-list-item,
+a:has(.v-list-item--active):hover .v-list-item {
   background: white;
 }
 
-.menu-dropdown .v-list-item--active:hover .v-list-item {
+.menu-dropdown a.v-list-item--active:hover .v-list-item {
   background: none;
 }
 </style>
