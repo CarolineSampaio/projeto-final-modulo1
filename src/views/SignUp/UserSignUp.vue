@@ -77,23 +77,11 @@
 
       <p class="mt-2"><router-link to="/login">Já tem uma conta?</router-link></p>
       <div>
-        <v-snackbar
-          v-model="snackbarSucess"
-          :timeout="duration"
-          color="success"
-          location="top"
-          class="snackbar"
-        >
+        <v-snackbar v-model="snackbarSuccess" :timeout="duration" color="success" location="top">
           Cadastro realizado com sucesso!
         </v-snackbar>
-        <v-snackbar
-          v-model="snackbarError"
-          :timeout="duration"
-          color="red"
-          location="top"
-          class="snackbar"
-        >
-          Houve uma falha ao tentar cadastrar!
+        <v-snackbar v-model="snackbarError" :timeout="duration" color="red-darken-2" location="top">
+          {{ errorMessage }}
         </v-snackbar>
       </div>
     </section>
@@ -124,9 +112,10 @@ export default {
         { value: 'gold', title: 'Ouro' }
       ],
       selectPlan: 'bronze',
-      snackbarSucess: false,
+      snackbarSuccess: false,
       snackbarError: false,
-      duration: 2000,
+      errorMessage: '',
+      duration: 3000,
 
       errors: {}
     }
@@ -175,7 +164,7 @@ export default {
             type_plan: this.selectPlan
           })
           .then(() => {
-            this.snackbarSucess = true
+            this.snackbarSuccess = true
             setTimeout(() => {
               this.$router.push('/login')
             }, this.duration)
@@ -183,9 +172,10 @@ export default {
           .catch((error) => {
             console.log(error)
             if (error.response?.data?.message) {
-              alert(error.response.data.message)
+              this.errorMessage = error.response.data.message
             } else {
               this.snackbarError = true
+              this.errorMessage = 'Erro ao cadastrar, tente novamente.'
             }
           })
       } catch (error) {
@@ -244,11 +234,6 @@ section.right {
     flex: 40%;
   }
 }
-.snackbar {
-  left: 40%;
-  top: 5%;
-}
-
 a {
   color: #292929;
   font-weight: bold;

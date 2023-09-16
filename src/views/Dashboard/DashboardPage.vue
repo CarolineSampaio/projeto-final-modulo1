@@ -52,7 +52,7 @@
               class="text-h6 text-md-h5 font-weight-bold"
               :style="lgAndDown ? 'white-space: break-spaces; text-align: center' : ''"
             >
-              <span class="text-h4 font-weight-bold">{{ amountStudents }}</span>
+              <h3 class="text-h3 font-weight-bold">{{ amountStudents }}</h3>
               Alunos Cadastrados
             </v-card-title>
             <router-link to="/students/new">
@@ -91,7 +91,7 @@
               class="text-h6 text-md-h5 font-weight-bold"
               :style="lgAndDown ? 'white-space: break-spaces; text-align: center' : ''"
             >
-              <span class="text-h4 font-weight-bold">{{ amountExercises }}</span>
+              <h3 class="text-h3 font-weight-bold">{{ amountExercises }}</h3>
               Exercícios Cadastrados
             </v-card-title>
             <router-link to="/exercises">
@@ -109,6 +109,9 @@
         </v-row>
       </v-card>
     </div>
+    <v-snackbar v-model="snackbarError" :timeout="duration" color="red-darken-2" location="top">
+      Erro ao carregar informações do dashboard!
+    </v-snackbar>
   </div>
 </template>
 
@@ -128,7 +131,10 @@ export default {
       userName: '',
       amountStudents: 0,
       amountExercises: 0,
-      token: getToken()
+      token: getToken(),
+
+      snackbarError: false,
+      duration: 3000
     }
   },
   mounted() {
@@ -153,7 +159,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          alert('Erro ao carregar informações do dashboard!')
+          this.snackbarError = true
         })
     }
   }

@@ -14,7 +14,7 @@
             class="font-weight-bold px-md-10"
             height="45px"
             :ripple="false"
-            :style="smAndDown ? 'margin-bottom:8%' : 'margin-bottom:4%'"
+            :style="smAndDown ? 'width:100%; margin-bottom:8%' : 'margin-bottom:4%'"
           >
             Cadastrar Aluno
           </v-btn>
@@ -52,11 +52,11 @@
                   <v-btn
                     variant="elevated"
                     color="grey-darken-4 text-amber"
-                    class="font-weight-bold px-sm-2 px-md-10 mr-sm-1 mr-md-4"
+                    class="font-weight-bold px-1 px-sm-2 px-md-10 mr-sm-1 mr-md-4"
                     :ripple="false"
                     :style="xs ? 'width:100%; margin: 10px 0px' : ''"
                   >
-                    Montar treino
+                    Cadastrar treino
                   </v-btn>
                 </router-link>
 
@@ -67,11 +67,11 @@
                   <v-btn
                     variant="elevated"
                     color="amber text-dark-grey-4"
-                    class="font-weight-bold px-sm-2 px-md-10 ml-sm-1 ml-md-4"
+                    class="font-weight-bold px-1 px-sm-2 px-md-10 ml-sm-1 ml-md-4"
                     :ripple="false"
                     :style="xs ? 'width:100%; margin-bottom: 10px' : ''"
                   >
-                    Ver treino
+                    Visualizar treino
                   </v-btn>
                 </router-link>
               </td>

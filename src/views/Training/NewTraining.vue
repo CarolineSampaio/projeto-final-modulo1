@@ -1,59 +1,117 @@
 <template>
-  <h1><v-icon>mdi-account-multiple</v-icon>Treino para {{ this.studentName }}</h1>
+  <div class="container" :style="mdAndDown ? 'padding-left: 5%' : 'padding-left: 20%'">
+    <div class="d-flex align-center" :style="smAndDown ? 'justify-content:center;' : ''">
+      <h1 class="py-4 py-md-12 font-weight-medium" :style="smAndDown ? 'font-size:1.5rem' : ''">
+        Treino para {{ this.studentName }}
+      </h1>
+      <v-icon size="x-large" class="pl-10" color="amber">mdi-account-outline</v-icon>
+    </div>
 
-  <v-form ref="form" @submit.prevent="createTraining">
-    <v-select
-      v-model="selectedExercise"
-      label="Exercício"
-      :items="exercises"
-      item-title="description"
-      item-value="id"
-      :error-messages="errors.selectedExercise"
-    ></v-select>
+    <div class="cardImage">
+      <div class="cardContent" :style="smAndDown ? 'flex-direction: column;  padding:8%' : ''">
+        <v-form ref="form" @submit.prevent="createTraining">
+          <v-row>
+            <v-col cols="12">
+              <v-autocomplete
+                v-model="selectedExercise"
+                label="Exercício"
+                :items="exercises"
+                item-title="description"
+                item-value="id"
+                variant="outlined"
+                :error-messages="errors.selectedExercise"
+                noDataText="Nenhum exercício encontrado"
+              >
+              </v-autocomplete>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-text-field
+                v-model="repetitions"
+                label="Repetições"
+                type="number"
+                variant="outlined"
+                :error-messages="errors.repetitions"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-text-field
+                v-model="weight"
+                label="Peso (kg)"
+                type="number"
+                variant="outlined"
+                :error-messages="errors.weight"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-text-field
+                v-model="breakTime"
+                label="Pausa"
+                type="time"
+                min="00:10"
+                max="10:00"
+                variant="outlined"
+                :rules="breakTimeRules"
+                onclick="this.showPicker()"
+                onfocus="this.showPicker()"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-select
+                v-model="weekDay"
+                label="Dia da semana"
+                :items="weekList"
+                variant="outlined"
+                :error-messages="errors.weekDay"
+              >
+              </v-select>
+            </v-col>
+            <v-col cols="12">
+              <v-textarea v-model="comments" label="Observações" variant="outlined"></v-textarea>
+            </v-col>
+            <v-col cols="12" class="d-flex justify-center">
+              <router-link to="/students">
+                <v-btn
+                  variant="elevated"
+                  size="large"
+                  color="amber text-dark-grey-4"
+                  class="font-weight-bold px-sm-2 px-md-10 mr-1 mr-md-4"
+                  :ripple="false"
+                >
+                  Voltar
+                </v-btn>
+              </router-link>
+              <v-btn
+                type="submit"
+                variant="elevated"
+                size="large"
+                color="grey-darken-4 text-amber"
+                class="font-weight-bold px-sm-2 px-md-10 ml-1 ml-md-4"
+                :ripple="false"
+              >
+                Cadastrar
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
 
-    <v-text-field
-      v-model="repetitions"
-      label="Repetições"
-      type="number"
-      :error-messages="errors.repetitions"
-    ></v-text-field>
-
-    <v-text-field
-      v-model="weight"
-      label="Peso (kg)"
-      type="number"
-      :error-messages="errors.weight"
-    ></v-text-field>
-
-    <v-text-field
-      v-model="breakTime"
-      label="Pausa"
-      type="time"
-      min="00:00:10"
-      max="00:10:00"
-      :rules="breakTimeRules"
-    ></v-text-field>
-
-    <v-select
-      v-model="weekDay"
-      label="Dia da semana"
-      :items="weekList"
-      :error-messages="errors.weekDay"
-    ></v-select>
-
-    <v-textarea v-model="comments" label="Observações"></v-textarea>
-
-    <router-link to="/students"><v-btn>Cancelar</v-btn></router-link>
-    <v-btn type="submit">Cadastrar</v-btn>
-  </v-form>
-
-  <v-snackbar v-model="snackbarSuccess" :timeout="duration" color="success" location="top">
-    Treino cadastrado com sucesso!
-  </v-snackbar>
-  <v-snackbar v-model="snackbarError" :timeout="duration" color="red" location="top">
-    Houve uma falha ao tentar cadastrar o treino!
-  </v-snackbar>
+        <v-snackbar v-model="snackbarSuccess" :timeout="duration" color="success" location="top">
+          Treino cadastrado com sucesso!
+        </v-snackbar>
+        <v-snackbar v-model="snackbarError" :timeout="duration" color="red" location="top">
+          Houve uma falha ao tentar cadastrar o treino!
+        </v-snackbar>
+      </div>
+    </div>
+  </div>
 </template>
+
+<script setup>
+import { useDisplay } from 'vuetify'
+const { smAndDown, mdAndDown } = useDisplay()
+</script>
 
 <script>
 import axios from 'axios'
@@ -71,7 +129,7 @@ export default {
       selectedExercise: '',
       repetitions: null,
       weight: null,
-      breakTime: '',
+      breakTime: '00:00',
       weekDay: '',
       weekList: [
         { value: 'domingo', title: 'Domingo' },
@@ -87,7 +145,7 @@ export default {
 
       snackbarSuccess: false,
       snackbarError: false,
-      duration: 2000,
+      duration: 3000,
       token: getToken()
     }
   },
@@ -110,7 +168,7 @@ export default {
       const schema = yup.object().shape({
         selectedExercise: yup.string().required('Selecione um exercício da lista.'),
         repetitions: yup.number().required('Insira no mínimo uma repetição.'),
-        weight: yup.number().required('Forneça o peso necessário para a execução do exercício.'),
+        weight: yup.number().required('Forneça o peso para a execução do exercício.'),
         weekDay: yup.string().required('Selecione um dia da semana.')
       })
 
@@ -186,10 +244,11 @@ export default {
   },
   computed: {
     breakTimeRules() {
+      console.log(this.breakTime)
       return [
-        (v) => !!v || 'Forneça o tempo de pausa necessário entre as repetições do exercício.',
-        (v) => v >= '00:00:10' || 'A pausa mínima é de 10 segundos',
-        (v) => v <= '00:10:00' || 'A pausa máxima é de 10 minutos'
+        (v) => !!v || 'Forneça o tempo de pausa entre as repetições do exercício.',
+        (v) => v >= '00:10' || 'A pausa mínima é de 10 segundos',
+        (v) => v <= '10:00' || 'A pausa máxima é de 10 minutos'
       ]
     }
   }
