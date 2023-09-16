@@ -52,7 +52,7 @@
               class="text-h6 text-md-h5 font-weight-bold"
               :style="lgAndDown ? 'white-space: break-spaces; text-align: center' : ''"
             >
-              <span class="text-h4 font-weight-bold">{{ amountStudents }}</span>
+              <h3 class="text-h3 font-weight-bold">{{ amountStudents }}</h3>
               Alunos Cadastrados
             </v-card-title>
             <router-link to="/students/new">
@@ -91,7 +91,7 @@
               class="text-h6 text-md-h5 font-weight-bold"
               :style="lgAndDown ? 'white-space: break-spaces; text-align: center' : ''"
             >
-              <span class="text-h4 font-weight-bold">{{ amountExercises }}</span>
+              <h3 class="text-h3 font-weight-bold">{{ amountExercises }}</h3>
               Exercícios Cadastrados
             </v-card-title>
             <router-link to="/exercises">
