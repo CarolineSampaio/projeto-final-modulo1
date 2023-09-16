@@ -145,7 +145,7 @@ export default {
 
       snackbarSuccess: false,
       snackbarError: false,
-      duration: 2000,
+      duration: 3000,
       token: getToken()
     }
   },

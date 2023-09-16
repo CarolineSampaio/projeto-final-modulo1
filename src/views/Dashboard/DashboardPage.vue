@@ -109,6 +109,9 @@
         </v-row>
       </v-card>
     </div>
+    <v-snackbar v-model="snackbarError" :timeout="duration" color="red-darken-2" location="top">
+      Erro ao carregar informações do dashboard!
+    </v-snackbar>
   </div>
 </template>
 
@@ -128,7 +131,10 @@ export default {
       userName: '',
       amountStudents: 0,
       amountExercises: 0,
-      token: getToken()
+      token: getToken(),
+
+      snackbarError: false,
+      duration: 3000
     }
   },
   mounted() {
@@ -153,7 +159,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          alert('Erro ao carregar informações do dashboard!')
+          this.snackbarError = true
         })
     }
   }

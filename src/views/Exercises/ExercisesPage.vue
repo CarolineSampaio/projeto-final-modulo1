@@ -12,6 +12,7 @@
       >
         <v-form
           @submit.prevent="addExercise"
+          ref="form"
           class="d-flex"
           :style="xs ? 'flex-direction: column;' : 'flex-direction: row'"
         >
@@ -48,9 +49,17 @@
           </tbody>
         </v-table>
 
-        <v-snackbar v-model="snackbar" :timeout="duration" color="success" location="top">
-          Cadastrado com sucesso!
-        </v-snackbar>
+        <div>
+          <v-snackbar v-model="snackbarSuccess" :timeout="duration" color="success" location="top">
+            Cadastrado com sucesso!
+          </v-snackbar>
+          <v-snackbar v-model="signUpError" :timeout="duration" color="red-darken-2" location="top">
+            Erro ao cadastrar exercício!
+          </v-snackbar>
+          <v-snackbar v-model="loadError" :timeout="duration" color="red-darken-2" location="top">
+            Erro ao carregar exercícios!
+          </v-snackbar>
+        </div>
       </div>
     </div>
   </div>
@@ -74,8 +83,10 @@ export default {
       exercises: [],
       description: '',
       errors: [],
-      snackbar: false,
-      duration: 2000,
+      snackbarSuccess: false,
+      signUpError: false,
+      loadError: false,
+      duration: 3000,
       token: getToken()
     }
   },
@@ -96,7 +107,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          alert('Erro ao carregar exercícios!')
+          this.loadError = true
         })
     },
     addExercise() {
@@ -126,13 +137,13 @@ export default {
           )
           .then((response) => {
             console.log(response.data)
-            this.snackbar = true
+            this.snackbarSuccess = true
             this.getExercises()
-            this.description = ''
+            this.$refs.form.reset()
           })
           .catch((error) => {
             console.log(error)
-            alert('Erro ao cadastrar exercício!')
+            this.signUpError = true
           })
       } catch (error) {
         console.log(error)

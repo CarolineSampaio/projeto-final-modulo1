@@ -161,11 +161,11 @@
           </v-row>
         </v-form>
 
-        <v-snackbar v-model="snackbarSucess" :timeout="duration" color="success" location="top">
+        <v-snackbar v-model="snackbarSuccess" :timeout="duration" color="success" location="top">
           Aluno cadastrado com sucesso!
         </v-snackbar>
-        <v-snackbar v-model="snackbarError" :timeout="duration" color="red" location="top">
-          Erro ao cadastrar aluno!
+        <v-snackbar v-model="snackbarError" :timeout="duration" color="red-darken-2" location="top">
+          {{ errorMessage }}
         </v-snackbar>
       </div>
     </div>
@@ -213,9 +213,10 @@ export default {
       state: '',
       complement: '',
       addressRequested: false,
-      snackbarSucess: false,
+      snackbarSuccess: false,
       snackbarError: false,
-      duration: 2000,
+      errorMessage: '',
+      duration: 3000,
       token: getToken(),
 
       errors: {}
@@ -277,12 +278,13 @@ export default {
         })
         .then((response) => {
           console.log(response.data)
-          this.snackbarSucess = true
+          this.snackbarSuccess = true
           this.$refs.form.reset()
         })
         .catch((error) => {
           console.log(error)
           this.snackbarError = true
+          this.errorMessage = 'Erro ao cadastrar aluno, tente novamente.'
         })
     },
     getAddressInfo() {
@@ -300,7 +302,9 @@ export default {
             this.validateSync()
           })
           .catch((error) => {
-            alert(`Erro ao consultar CEP: ${cep}`, error)
+            this.snackbarError = true
+            this.errorMessage = `Erro ao consultar o CEP: ${cep}`
+            console.log(error)
           })
       }
     }

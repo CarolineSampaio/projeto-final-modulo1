@@ -49,6 +49,10 @@
 
       <p>Ainda não tem conta? <router-link to="/signup">Cadastre-se</router-link></p>
     </section>
+
+    <v-snackbar v-model="loginError" :timeout="duration" color="red-darken-2" location="top">
+      {{ errorMessage }}
+    </v-snackbar>
   </div>
 </template>
 
@@ -69,7 +73,10 @@ export default {
     return {
       email: '',
       password: '',
-      errors: {}
+      errors: {},
+      loginError: false,
+      errorMessage: '',
+      duration: 3000
     }
   },
   methods: {
@@ -103,7 +110,6 @@ export default {
               token: response.data.token
             }
             localStorage.setItem('logged_user', JSON.stringify(loggedUser))
-
             this.$router.push('/')
           })
           .catch((error) => {
@@ -113,15 +119,19 @@ export default {
 
               if (status === 401) {
                 if (responseData.message) {
-                  alert(responseData.message)
+                  this.loginError = true
+                  this.errorMessage = responseData.message
                 } else {
-                  alert('Email ou senha incorretos, tente novamente.')
+                  this.loginError = true
+                  this.errorMessage = 'Email ou senha incorretos, tente novamente.'
                 }
               } else if (status === 500) {
-                alert('Não foi possível realizar o login. Tente novamente mais tarde.')
+                this.loginError = true
+                this.errorMessage = 'Não foi possível realizar o login. Tente novamente mais tarde.'
               }
             } else {
-              alert('Ocorreu um erro. Tente novamente mais tarde.')
+              this.loginError = true
+              this.errorMessage = 'Ocorreu um erro. Tente novamente mais tarde.'
             }
           })
       } catch (error) {

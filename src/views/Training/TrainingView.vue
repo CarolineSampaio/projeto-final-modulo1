@@ -85,6 +85,9 @@
         </div>
       </div>
     </div>
+    <v-snackbar v-model="snackbarError" :timeout="duration" color="red-darken-2" location="top">
+      {{ errorMessage }}
+    </v-snackbar>
   </div>
 </template>
 
@@ -107,7 +110,11 @@ export default {
       workoutTable: [[], [], [], [], [], [], []],
       today: new Date().getDay(),
       activeTab: null,
-      token: getToken()
+      token: getToken(),
+
+      snackbarError: false,
+      errorMessage: '',
+      duration: 3000
     }
   },
   mounted() {
@@ -126,7 +133,8 @@ export default {
         .then(({ data }) => this.createWorkoutTable(data.workouts))
         .catch((error) => {
           console.log(error)
-          alert('Houve um erro ao carregar os treinos')
+          this.snackbarError = true
+          this.errorMessage = 'Houve um erro ao carregar os treinos'
         })
     },
     createWorkoutTable(trainings) {
@@ -152,10 +160,12 @@ export default {
             }
           }
         )
-        .then(() => console.log('Marcado como feito'))
+        .then(() => console.log('Marcado como realizado!'))
         .catch((error) => {
           console.log(error)
-          alert('Houve um erro ao marcar como feito')
+
+          this.snackbarError = true
+          this.errorMessage = 'Houve um erro ao marcar como realizado!'
         })
     },
     getStudentName() {
