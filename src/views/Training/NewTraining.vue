@@ -194,7 +194,7 @@ export default {
               weight: this.weight,
               break_time: this.breakTime,
               day: this.weekDay,
-              observations: this.comments
+              observations: this.comments || ''
             },
             {
               headers: {
@@ -205,6 +205,7 @@ export default {
           .then(() => {
             this.snackbarSuccess = true
             this.$refs.form.reset()
+            this.breakTime = '00:00'
             this.weekDay = this.currentWeekDay()
           })
           .catch((error) => {
