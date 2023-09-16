@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex ma-0 pa-0 container">
-    <section class="left hidden-md-and-down">
+    <section class="left" :style="mdAndDown ? 'display:none' : ''">
       <div class="float">
         <h3>Em qualquer hora ou lugar...</h3>
         <span class="text-h3">Gerencie <span class="type-it"></span></span>
