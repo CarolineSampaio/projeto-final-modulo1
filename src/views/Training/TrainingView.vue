@@ -12,13 +12,16 @@
         <h2 class="pb-2 pb-sm-5 font-weight-medium">Hoje</h2>
         <div v-for="workout in workoutTable[today]" :key="workout">
           <v-checkbox
-            :label="`${workout.exercise_description} | ${workout.weight}KG | ${workout.repetitions} repetições | ${workout.break_time} segundos de pausa`"
+            :label="`
+            ${workout.exercise_description} | ${workout.weight}KG | 
+            ${workout.repetitions} repetições | ${formatBreakTime(workout.break_time)}`"
             v-model="workout.checked"
             v-bind:true-value="1"
             @click="markAsChecked(workout.id)"
             hide-details
             :style="smAndDown ? 'padding-top: 5%;' : ''"
-          ></v-checkbox>
+          >
+          </v-checkbox>
         </div>
 
         <v-card class="my-12 pb-5">
@@ -40,9 +43,10 @@
                       <td class="pa-sm-2">{{ workout.exercise_description }}</td>
                       <td class="pa-sm-2">{{ workout.weight }}KG</td>
                       <td class="pa-sm-2">{{ workout.repetitions }} repetições</td>
-                      <td class="pa-sm-2">{{ workout.break_time }} segundos de pausa</td>
+                      <td class="pa-sm-2">Pausa de {{ formatBreakTime(workout.break_time) }}</td>
                     </tr>
 
+                    <!-- tr para telas < 600px -->
                     <tr v-for="workout in workoutDay" :key="workout" class="d-sm-none">
                       <td class="pa-1 ma-1 mb-2 text-center">
                         <div class="mb-2 text-body-2">{{ workout.exercise_description }}</div>
@@ -50,7 +54,9 @@
                       </td>
                       <td class="pa-1 ma-1 mb-2 text-center">
                         <div class="mb-2 text-body-2">{{ workout.repetitions }} repetições</div>
-                        <div class="mb-2 text-body-2">{{ workout.break_time }} de pausa</div>
+                        <div class="mb-2 text-body-2">
+                          {{ formatBreakTime(workout.break_time) }} de pausa
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -170,6 +176,14 @@ export default {
             this.studentName = alunoEncontrado.name
           }
         })
+    },
+    formatBreakTime(breakTime) {
+      const [minutes, seconds] = breakTime.split(':')
+      if (minutes === '00') {
+        return `${seconds} segundos`
+      } else {
+        return `${minutes} min e ${seconds} seg`
+      }
     }
   }
 }
