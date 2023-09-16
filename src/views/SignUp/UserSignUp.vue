@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex ma-0 pa-0 container">
-    <section class="left hidden-md-and-down">
+    <section class="left" :style="mdAndDown ? 'display:none' : ''">
       <img
         src="../../assets/bg_login.jpg"
         alt="imagem com barra e peso academia no chão."

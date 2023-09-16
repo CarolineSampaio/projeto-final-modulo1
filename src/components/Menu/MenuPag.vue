@@ -42,7 +42,7 @@
   </v-layout>
 
   <div class="d-flex justify-center" id="menuMobile">
-    <v-row class="hidden-lg-and-up">
+    <v-row :style="lgAndUp ? 'display:none' : ''">
       <v-col cols="12" class="pa-0 ma-0">
         <v-card-title
           class="bg-grey-darken-4 d-flex align-center justify-space-between pt-4 pl-8 pl-sm-4"
@@ -51,7 +51,7 @@
             <img
               src="../../assets/gofit_logo_white.svg"
               alt="logo do sistema go!fit, no o possui o desenho de uma anilha."
-              :style="mdAndUp ? 'width: 20%; margin-left: 5%' : 'width: 30%'"
+              :style="xs ? 'width: 30%;margin-left: 5% ' : 'width: 40%; margin-left: 10%'"
             />
           </router-link>
 
@@ -81,7 +81,7 @@
 
 <script setup>
 import { useDisplay } from 'vuetify'
-const { lgAndUp, mdAndUp } = useDisplay()
+const { xs, lgAndUp } = useDisplay()
 </script>
 
 <script>
