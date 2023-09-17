@@ -8,6 +8,7 @@
       class="pl-2 pl-md-4"
       id="sidebar"
       border="none"
+      :style="mdAndDown ? 'display:none' : ''"
     >
       <v-list-item>
         <router-link to="/">
@@ -81,7 +82,7 @@
 
 <script setup>
 import { useDisplay } from 'vuetify'
-const { xs, lgAndUp } = useDisplay()
+const { xs, lgAndUp, mdAndDown } = useDisplay()
 </script>
 
 <script>
