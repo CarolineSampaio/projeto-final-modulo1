@@ -4,7 +4,24 @@
 
 ## Introdução
 
-O GO!FIT System é uma solução de gerenciamento projetada para atender às necessidades dos instrutores de academia. O sistema foi desenvolvido com o objetivo de simplificar otimizar as tarefas diárias desses profissionais, tornando o processo de gerenciamento de alunos, treinos e exercícios em uma experiência organizada e eficiente.
+O GO!FIT System é uma solução de gerenciamento projetada para atender às necessidades dos instrutores de academia. O sistema foi desenvolvido com o objetivo de simplificar e otimizar as tarefas diárias desses profissionais, tornando o processo de gerenciamento de alunos, treinos e exercícios em uma experiência organizada e eficiente.
+
+## Demo
+
+A demonstração pode ser acessada através do link:
+
+https://gofitsystem.vercel.app
+
+Para acessar o sistema você pode utilizar o login de visitante:
+
+```
+email: guest@admin.com
+senha: 12345678
+```
+
+Ou se cadastrar através da [página signup](https://gofitsystem.vercel.app/signup).
+
+**Atenção: Como o vercel possui armazenamento efêmero, os dados cadastrados são temporários.**
 
 <p align=center>
 <img src= "mockup.png" height="400">
@@ -24,7 +41,7 @@ O GO!FIT System é uma solução de gerenciamento projetada para atender às nec
 
 ### Back-end
 
-Navegue até onde a API se encontra.
+Navegue até o diretório onde o projeto back-end se encontra.
 
 Execute os comandos:
 
@@ -55,8 +72,6 @@ npm install
 ```sh
 npm run dev
 ```
-
-Acesse a URL gerada no terminal.
 
 #### Compila e minifica para produção
 
