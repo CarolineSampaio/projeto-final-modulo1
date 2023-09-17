@@ -2,7 +2,7 @@
   <div class="container" :style="mdAndDown ? 'padding-left: 5%' : 'padding-left: 20%'">
     <div class="d-flex align-center" :style="smAndDown ? 'justify-content:center;' : ''">
       <h1 class="py-4 py-md-12 font-weight-medium" :style="smAndDown ? 'font-size:1.5rem' : ''">
-        Treinos - {{ this.studentName }}
+        Treinos - {{ studentName }}
       </h1>
       <v-icon size="x-large" class="pl-10" color="amber">mdi-account-outline</v-icon>
     </div>
