@@ -121,9 +121,8 @@ export default {
       this.$router.push('/login')
     },
     isChildrenActive(item) {
-      if (item.link === '/students') {
-        return this.$route.path === item.link || this.$route.path.includes('training')
-      }
+      if (item.link !== '/students') return
+      return this.$route.path.includes('training') || this.$route.path.includes('students')
     }
   }
 }

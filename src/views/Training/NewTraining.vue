@@ -47,7 +47,7 @@
             <v-col cols="12" md="4">
               <v-text-field
                 v-model="breakTime"
-                label="Pausa"
+                label="Pausa (min:seg)"
                 type="time"
                 min="00:10"
                 max="10:00"
