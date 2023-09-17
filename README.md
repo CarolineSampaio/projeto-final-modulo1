@@ -24,7 +24,7 @@ Ou se cadastrar através da [página signup](https://gofitsystem.vercel.app/sign
 **Atenção: Como o vercel possui armazenamento efêmero, os dados cadastrados são temporários.**
 
 <p align=center>
-<img src= "mockup.png" height="400">
+<img src= "mockup.png" width="100%">
 </p>
 
 ## Dependências do sistema
@@ -32,6 +32,8 @@ Ou se cadastrar através da [página signup](https://gofitsystem.vercel.app/sign
 - npm 9.5.1
 - node v18.16.1
 - vue: 3.3.4
+
+Esse projeto foi desenvolvido usando [Trunk-based Development](https://www.optimizely.com/optimization-glossary/trunk-based-development/).
 
 ### Configuração IDE recomendada
 
