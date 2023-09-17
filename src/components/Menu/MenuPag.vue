@@ -72,6 +72,11 @@
               <v-list-item v-for="(item, i) in items" :key="i" :to="item.link" link>
                 <v-list-item :append-icon="item.icon">{{ item.text }}</v-list-item>
               </v-list-item>
+              <v-list-item class="pt-10" align="center">
+                <v-btn append-icon="mdi-logout" variant="plain" @click="logout" width="100%"
+                  >Sair</v-btn
+                >
+              </v-list-item>
             </v-list>
           </v-menu>
         </v-card-title>
